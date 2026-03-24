@@ -1,2 +1,1 @@
-# -Fridge-Scanner---not-final-name
-Fridge scanner 
+# Fridge-Scanner

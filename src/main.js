@@ -7,13 +7,12 @@ async function search() {
   const data = await res.json();
   const r = data.results[0];
 
-  if (!r) { document.getElementById('out').innerHTML = 'Nica'; return; }
+  if (!r) { document.getElementById('out').innerHTML = 'Nici o rețetă găsită'; return; }
 
   const getNutrient = (name) => {
     const found = r.nutrition?.nutrients?.find(n => n.name === name);
     return found ? `${Math.round(found.amount)}${found.unit}` : 'N/A';
   };
-
 
   const steps = r.analyzedInstructions?.[0]?.steps ?? [];
   const stepsHTML = steps.length

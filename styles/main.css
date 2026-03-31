@@ -1,3 +1,7 @@
+body{
+    margin: 20px;
+}
+
 .HeroSec {
     position: relative;
     height: 526px;
@@ -61,3 +65,208 @@
     background-color: rgb(235, 85, 85);
     border-radius: 10px;
 }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    :root {
+      --red: rgb(235, 85, 85);
+      --dark: #111;
+      --light: #f9f7f4;
+      --gray: #e8e5e0;
+      --text-muted: #888;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Lato', sans-serif;
+    }
+ 
+    html { scroll-behavior: smooth; }
+ 
+    body {
+      font-family: var(--sans);
+      background: var(--light);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+ 
+    /* ── HOW IT WORKS (snake section) ───────────────── */
+    .how {
+      padding: 80px 16px 60px;
+      position: relative;
+    }
+ 
+    .how__label {
+      text-align: center;
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+ 
+    .how__heading {
+      text-align: center;
+      font-family: var(--serif);
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+ 
+    /* SVG snake path container */
+    .snake-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      height: 440px;
+    }
+ 
+    .snake-svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+ 
+    .snake-step {
+      position: absolute;
+      max-width: 160px;
+    }
+ 
+    .snake-step__num {
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--gray);
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+ 
+    .snake-step__text {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+ 
+    .snake-step--1 { top: 20px; left: 0; }
+    .snake-step--2 { top: 110px; right: 0; text-align: right; }
+    .snake-step--3 { top: 220px; left: 0; }
+    .snake-step--4 { top: 330px; right: 0; text-align: right; }
+ 
+    /* ── SLOGAN ──────────────────────────────────────── */
+    .slogan {
+      text-align: center;
+      padding: 20px 24px 48px;
+    }
+ 
+    .slogan__text {
+      font-family: var(--serif);
+      font-size: 38px;
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--dark);
+    }
+ 
+    .slogan__text span { color: var(--red); }
+ 
+    /* ── CTA BUTTONS ─────────────────────────────────── */
+    .cta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px 80px;
+      gap: 16px;
+    }
+ 
+    .btn--cta {
+      background: var(--dark);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.15s;
+      letter-spacing: 0.3px;
+    }
+    .btn--cta:hover { background: var(--red); transform: translateY(-2px); }
+ 
+    .btn--cta-outline {
+      background: transparent;
+      color: var(--dark);
+      border: 2px solid var(--dark);
+      padding: 12px 28px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.15s, color 0.15s;
+    }
+    .btn--cta-outline:hover { background: var(--dark); color: white; transform: translateY(-2px); }
+ 
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: var(--gray);
+      border-radius: 24px 24px 0 0;
+      padding: 40px 32px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      margin: 0 0px;
+    }
+ 
+    .footer__brand {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+ 
+    .footer__links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+ 
+    .footer__links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    .footer__links a:hover { color: var(--red); }
+ 
+    .footer__social {
+      text-align: right;
+    }
+ 
+    .footer__social-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+ 
+    .footer__social-icons {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+ 
+    .footer__social-icons a {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--dark);
+      color: white;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .footer__social-icons a:hover { background: var(--red); transform: scale(1.1); }

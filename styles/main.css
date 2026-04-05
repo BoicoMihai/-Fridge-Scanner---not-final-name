@@ -39,8 +39,8 @@
           gap: 2.5rem;
           position: absolute;
           z-index: 1;
-          top: 80px;
-          left: 450px;
+          padding-top: 80px;
+          padding-left: 450px;
         }
  
         nav a {

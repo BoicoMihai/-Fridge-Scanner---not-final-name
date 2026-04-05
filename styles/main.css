@@ -33,7 +33,6 @@
           height: 25px;
         }
  
- 
         nav {
           display: flex;
           gap: 2.5rem;
@@ -52,10 +51,8 @@
  
         .hero {
           display: grid;
-
           gap: 3rem;
           align-items: center;
-          padding: 3rem 4rem;
           width: 1600px;
           margin: 0 auto;
         }

@@ -5,8 +5,10 @@
 </head>
 <body>
 
-<input type="text" id="q" placeholder="Scrie produsele tale">
+<input type="text" id="q" placeholder="Scrie produsele tale" autocomplete="off" onfocus="showHistory()" onblur="hideHistory()" oninput="showHistory()">
 <button onclick="search()">Caută</button>
+
+<div id="dropdown"></div>
 
 <div id="out"></div>
 

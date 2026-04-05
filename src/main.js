@@ -34,4 +34,38 @@ async function search() {
     ${stepsHTML}
     <a href="${r.sourceUrl}" target="_blank">Vezi rețeta completă</a>
   `;
+  const history = JSON.parse(localStorage.getItem('istoric') || '[]');
+  if (!history.includes(q)) history.unshift(q);
+  localStorage.setItem('istoric', JSON.stringify(history.slice(0, 10)));
+
+  document.getElementById('q').value = '';
 }
+
+function showHistory() {
+  const q = document.getElementById('q').value.toLowerCase();
+  const history = JSON.parse(localStorage.getItem('istoric') || '[]');
+  const filtrat = history.filter(item => item.toLowerCase().includes(q));
+  const dropdown = document.getElementById('dropdown');
+
+  if (!filtrat.length) { dropdown.innerHTML = ''; return; }
+
+dropdown.innerHTML = filtrat.map(item =>
+  `<div style="margin: 4px;">
+    <button onmousedown="selectItem('${item}')">${item}</button>
+    <button onmousedown="deleteItem('${item}')">✕</button>
+  </div>`
+).join('');
+}
+
+function selectItem(val) {
+  document.getElementById('q').value = val;
+  document.getElementById('dropdown').innerHTML = '';
+  search();
+}
+
+function hideHistory() {
+  setTimeout(() => {
+    document.getElementById('dropdown').innerHTML = '';
+  }, 150);
+}
+

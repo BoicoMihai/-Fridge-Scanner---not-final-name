@@ -1,5 +1,10 @@
 const KEY = 'b5c5cbce124744faaff1a8f13541ae45';
 
+window.onload = () => {
+  const rezultat = localStorage.getItem('rezultat');
+  if (rezultat) document.getElementById('out').innerHTML = rezultat;
+};
+
 async function search() {
   const q = document.getElementById('q').value;
   document.getElementById('out').innerHTML = 'Se încarcă';
@@ -37,24 +42,19 @@ async function search() {
   const history = JSON.parse(localStorage.getItem('istoric') || '[]');
   if (!history.includes(q)) history.unshift(q);
   localStorage.setItem('istoric', JSON.stringify(history.slice(0, 10)));
-
-  document.getElementById('q').value = '';
+  localStorage.setItem('rezultat', document.getElementById('out').innerHTML);
 }
 
 function showHistory() {
-  const q = document.getElementById('q').value.toLowerCase();
   const history = JSON.parse(localStorage.getItem('istoric') || '[]');
-  const filtrat = history.filter(item => item.toLowerCase().includes(q));
   const dropdown = document.getElementById('dropdown');
-
-  if (!filtrat.length) { dropdown.innerHTML = ''; return; }
-
-dropdown.innerHTML = filtrat.map(item =>
-  `<div style="margin: 4px;">
-    <button onmousedown="selectItem('${item}')">${item}</button>
-    <button onmousedown="deleteItem('${item}')">✕</button>
-  </div>`
-).join('');
+  if (!history.length) { dropdown.innerHTML = ''; return; }
+  dropdown.innerHTML = history.map(item =>
+    `<div style="margin: 4px;">
+      <button onmousedown="selectItem('${item}')">${item}</button>
+      <button onmousedown="deleteItem('${item}')">✕</button>
+    </div>`
+  ).join('');
 }
 
 function selectItem(val) {
@@ -69,3 +69,9 @@ function hideHistory() {
   }, 150);
 }
 
+function deleteItem(val) {
+  let history = JSON.parse(localStorage.getItem('istoric') || '[]');
+  history = history.filter(item => item !== val);
+  localStorage.setItem('istoric', JSON.stringify(history));
+  showHistory();
+}

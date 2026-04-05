@@ -1,272 +1,164 @@
-body{
-    margin: 20px;
-}
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.HeroSec {
-    position: relative;
-    height: 526px;
-}
+        :root {
+          --cream: #f5f1e8;
+          --dusty-rose: #a0594f;
+          --dark-brown: #5c4033;
+          --text-dark: #3d3d3d;
+        }
+ 
+        body {
+          font-family: "Afacad", sans-serif;
+          font-weight: 600;
+          background-color: var(--cream);
+          color: var(--text-dark);
+        }
+ 
+        .social-icons {
+          position: absolute;
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 1.2rem;
+          padding-left: 40px;
+          padding-bottom: 500px;
+        }
 
-#Header-Image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 30px;
-    filter: brightness(50%);
-    position: absolute; 
-}
+        .social-icons svg{
+          width: 25px;
+          height: 25px;
+        }
+ 
+ 
+        nav {
+          display: flex;
+          gap: 2.5rem;
+          position: absolute;
+          z-index: 1;
+          top: 80px;
+          left: 450px;
+        }
+ 
+        nav a {
+          text-decoration: none;
+          color: var(--text-dark);
+          font-size: 18px;
+          z-index: 1;
+        }
+ 
+        .hero {
+          display: grid;
 
-#Header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 50px;
-    margin-right: 40em;
-    position: absolute;  
-    top: 20px;           
-
-    right: 0;
-    z-index: 1;
-}
-
-#Header button{
-    background: none;
-    border: none;
-    color: white;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
-    font-size: 20px;
-}
-
-#Logo{
-    position: absolute;
-    filter: invert(1);
-    width: 150px;
-    height: 160px;
-    left: 50px;
-    top: 50px;
-}
-
-#HeroText{
-    position: absolute;
-    color: white;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
-    font-size: 20px;
-    top: 200px;
-    left: 40px;
-}
-
-#StartButton{
-    position: absolute;
-    width: 200px;
-    height: 40px;
-    top: 280px;
-    left: 30px;
-    background-color: rgb(235, 85, 85);
-    border-radius: 10px;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+          gap: 3rem;
+          align-items: center;
+          padding: 3rem 4rem;
+          width: 1600px;
+          margin: 0 auto;
+        }
  
-    :root {
-      --red: rgb(235, 85, 85);
-      --dark: #111;
-      --light: #f9f7f4;
-      --gray: #e8e5e0;
-      --text-muted: #888;
-      --serif: 'Playfair Display', Georgia, serif;
-      --sans: 'Lato', sans-serif;
-    }
+        .hero-content {
+          padding-left: 100px;
+          position: absolute;
+          z-index: 1;
+        }
  
-    html { scroll-behavior: smooth; }
+        .hero-content h1 {
+            font-size: 3.2rem;
+            color: var(--dusty-rose);
+            font-family: "Alkatra", system-ui;
+            margin-bottom: 1.2rem;
+            line-height: 1.1;
+            font-weight: normal;
+        }
  
-    body {
-      font-family: var(--sans);
-      background: var(--light);
-      color: var(--dark);
-      overflow-x: hidden;
-    }
-
+        .hero-content p {
+            font-size: 1rem;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            max-width: 350px;
+        }
  
-    /* ── HOW IT WORKS (snake section) ───────────────── */
-    .how {
-      padding: 80px 16px 60px;
-      position: relative;
-    }
+        .cta-button {
+            padding: 0.75rem 2rem;
+            background-color: var(--dusty-rose);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            font-family: "Afacad", sans-serif;
+            transition: background-color 0.3s ease;
+        }
  
-    .how__label {
-      text-align: center;
-      font-family: var(--sans);
-      font-size: 11px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
+        .cta-button:hover {
+            background-color: var(--dark-brown);
+        }
  
-    .how__heading {
-      text-align: center;
-      font-family: var(--serif);
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 0;
-    }
+        .hero-image {
+          position: relative;
+          z-index: 0;
+          padding-bottom: 30px;
+        }
  
-    /* SVG snake path container */
-    .snake-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 480px;
-      margin: 0 auto;
-      height: 440px;
-    }
+        .hero-image img {
+          width: 1500px;
+          height: 900px;
+          z-index: 0;
+        }
  
-    .snake-svg {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-    }
+        /*Pentru telefon*/
+        @media (max-width: 1024px) {
+            header {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
  
-    .snake-step {
-      position: absolute;
-      max-width: 160px;
-    }
+            nav {
+                margin-left: 0;
+                gap: 1.5rem;
+            }
  
-    .snake-step__num {
-      font-family: var(--serif);
-      font-size: 36px;
-      font-weight: 900;
-      color: var(--gray);
-      line-height: 1;
-      margin-bottom: 2px;
-    }
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
  
-    .snake-step__text {
-      font-family: var(--sans);
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+        }
  
-    .snake-step--1 { top: 20px; left: 0; }
-    .snake-step--2 { top: 110px; right: 0; text-align: right; }
-    .snake-step--3 { top: 220px; left: 0; }
-    .snake-step--4 { top: 330px; right: 0; text-align: right; }
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 2rem;
+            }
  
-    /* ── SLOGAN ──────────────────────────────────────── */
-    .slogan {
-      text-align: center;
-      padding: 20px 24px 48px;
-    }
+            nav {
+                flex-direction: column;
+                gap: 0.8rem;
+                text-align: center;
+            }
  
-    .slogan__text {
-      font-family: var(--serif);
-      font-size: 38px;
-      font-weight: 900;
-      line-height: 1.15;
-      color: var(--dark);
-    }
+            .social-icons {
+                position: relative;
+                left: 0;
+                transform: none;
+                flex-direction: row;
+                justify-content: center;
+                margin-bottom: 1rem;
+                gap: 1rem;
+            }
  
-    .slogan__text span { color: var(--red); }
+            .hero {
+                padding: 2rem 1rem;
+            }
  
-    /* ── CTA BUTTONS ─────────────────────────────────── */
-    .cta-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 24px 80px;
-      gap: 16px;
-    }
- 
-    .btn--cta {
-      background: var(--dark);
-      color: white;
-      padding: 14px 28px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.15s, background 0.15s;
-      letter-spacing: 0.3px;
-    }
-    .btn--cta:hover { background: var(--red); transform: translateY(-2px); }
- 
-    .btn--cta-outline {
-      background: transparent;
-      color: var(--dark);
-      border: 2px solid var(--dark);
-      padding: 12px 28px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      text-decoration: none;
-      cursor: pointer;
-      transition: transform 0.15s, background 0.15s, color 0.15s;
-    }
-    .btn--cta-outline:hover { background: var(--dark); color: white; transform: translateY(-2px); }
- 
-    /* ── FOOTER ──────────────────────────────────────── */
-    footer {
-      background: var(--gray);
-      border-radius: 24px 24px 0 0;
-      padding: 40px 32px 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 24px;
-      margin: 0 0px;
-    }
- 
-    .footer__brand {
-      font-family: var(--serif);
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
- 
-    .footer__links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
- 
-    .footer__links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
-    .footer__links a:hover { color: var(--red); }
- 
-    .footer__social {
-      text-align: right;
-    }
- 
-    .footer__social-label {
-      font-size: 12px;
-      color: var(--text-muted);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
- 
-    .footer__social-icons {
-      display: flex;
-      gap: 12px;
-      justify-content: flex-end;
-    }
- 
-    .footer__social-icons a {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      background: var(--dark);
-      color: white;
-      display: flex; align-items: center; justify-content: center;
-      text-decoration: none;
-      font-size: 16px;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .footer__social-icons a:hover { background: var(--red); transform: scale(1.1); }
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+        }

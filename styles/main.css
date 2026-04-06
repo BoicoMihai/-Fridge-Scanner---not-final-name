@@ -180,6 +180,46 @@
             height: 250px;
         }
 
+        .footer{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .footer h1{
+            font-size: 3.5rem;
+            color: var(--dusty-rose);
+            font-family: "Alkatra", system-ui;
+            line-height: 1.1;
+            font-weight: normal;
+        }
+
+        .footer-image{
+            height: 350px;
+        }
+
+        .footer-content{
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            
+        }
+
+        .footer-content h2{
+            color: var(--dusty-rose);
+            display: flex;
+            flex-direction:column-reverse;
+        }
+        
+        .text-content{
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            padding-top: 10px;
+        }
+
         
  
         /*Pentru telefon*/

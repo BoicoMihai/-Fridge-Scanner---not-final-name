@@ -33,14 +33,13 @@
           height: 25px;
         }
  
- 
         nav {
           display: flex;
           gap: 2.5rem;
           position: absolute;
           z-index: 1;
-          top: 80px;
-          left: 450px;
+          padding-top: 80px;
+          padding-left: 450px;
         }
  
         nav a {
@@ -52,10 +51,8 @@
  
         .hero {
           display: grid;
-
           gap: 3rem;
           align-items: center;
-          padding: 3rem 4rem;
           width: 1600px;
           margin: 0 auto;
         }

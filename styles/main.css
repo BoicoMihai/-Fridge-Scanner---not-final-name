@@ -272,6 +272,49 @@
             height: 25px;
         }
 
+        .Back-to-top{        
+            border-radius: 12px;
+            background-color: var(--cream);
+            border-color: var(--dusty-rose);
+
+            width:132px;
+            height: 44px;
+
+            color: var(--dusty-rose);
+            transition: background-color 0.3s ease;
+        }
+
+        .Back-to-top:hover{
+            background-color: var(--dusty-rose);
+            color: var(--cream);
+            border-color: var(--dusty-rose);
+        }
+
+        .Site-map{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .Legal{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .top-link{
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            margin-right: 590px;
+
+            margin-top: 20px;
+        }
+
         /*Pentru telefon*/
         @media (max-width: 1024px) {
             header {

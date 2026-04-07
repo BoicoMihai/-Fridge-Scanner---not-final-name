@@ -4,8 +4,8 @@
             box-sizing: border-box;
         }
 
-        :root {
-          --cream: #f5f1e8;
+        :root { 
+          --cream: #f9f6e3;
           --dusty-rose: #a0594f;
           --dark-brown: #5c4033;
           --text-dark: #3d3d3d;
@@ -16,6 +16,7 @@
           font-weight: 600;
           background-color: var(--cream);
           color: var(--text-dark);
+          font-size: 16px;
         }
  
         .social-icons {
@@ -39,13 +40,14 @@
           position: absolute;
           z-index: 1;
           padding-top: 80px;
-          padding-left: 450px;
+          padding-left: 200px;
+        ;
         }
  
         nav a {
           text-decoration: none;
           color: var(--text-dark);
-          font-size: 18px;
+          font-size: 20px;
           z-index: 1;
         }
  
@@ -53,6 +55,7 @@
           display: grid;
           gap: 3rem;
           align-items: center;
+          padding-left: 4rem;
           width: 1600px;
           margin: 0 auto;
         }
@@ -107,6 +110,117 @@
           height: 900px;
           z-index: 0;
         }
+
+        .content {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          margin: 0 auto;
+        }
+
+        .content h1{
+            font-size: 3.5rem;
+            color: var(--dusty-rose);
+            font-family: "Alkatra", system-ui;
+            line-height: 1.1;
+            font-weight: normal;
+        }
+
+        #top-image{
+          height: 342px;
+          width: 576px;
+        }
+
+        .content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 980px;
+            width: 70%;
+        }
+
+        .content-top{
+            width: 600px;
+            height: 300px;
+        }
+
+        .content-card__image{
+            height: 220px;
+        }
+
+        .card-left{
+            padding-right: 600px;
+            padding-top: 40px;
+        }
+
+        .card-right{
+            padding-bottom: 60px;
+            padding-left: 800px;
+        }
+
+        .content-right{
+            text-align: right;
+        }
+
+        .how-it-works p{
+            font-size: 18px;
+            width: 400px;
+        }
+
+        .trail{
+            position: absolute;
+            padding-top: 100px;
+            height: 900px;
+            width: 1130px;
+            padding-left: 80px;
+        }
+
+        #pie-crust-image{
+            height: 250px;
+        }
+
+        .footer{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .footer h1{
+            font-size: 3.5rem;
+            color: var(--dusty-rose);
+            font-family: "Alkatra", system-ui;
+            line-height: 1.1;
+            font-weight: normal;
+        }
+
+        .footer-image{
+            height: 350px;
+        }
+
+        .footer-content{
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            
+        }
+
+        .footer-content h2{
+            color: var(--dusty-rose);
+            display: flex;
+            flex-direction:column-reverse;
+        }
+        
+        .text-content{
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            padding-top: 10px;
+        }
+
+        
  
         /*Pentru telefon*/
         @media (max-width: 1024px) {

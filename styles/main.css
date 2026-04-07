@@ -6,9 +6,10 @@
 
         :root { 
           --cream: #f9f6e3;
-          --dusty-rose: #a0594f;
+          --dusty-rose: #9F5D5D;
           --dark-brown: #5c4033;
           --text-dark: #3d3d3d;
+          --grey: #D9D9D9; 
         }
  
         body {
@@ -185,6 +186,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            margin: 0 auto;
         }
 
         .footer h1{
@@ -197,31 +199,79 @@
 
         .footer-image{
             height: 350px;
+            display: flex;
+            align-items: center;
         }
 
         .footer-content{
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            flex-direction: column;
-            
+            margin: 0 auto;
+            padding-left: 100px;
         }
 
         .footer-content h2{
             color: var(--dusty-rose);
             display: flex;
-            flex-direction:column-reverse;
+            flex-direction:row;
+            
         }
         
         .text-content{
             display: flex;
-            flex-direction: row;
+            flex-direction: row ;
             gap: 30px;
-            padding-top: 10px;
         }
 
-        
- 
+        .email-selection{
+            display: flex;
+            flex-direction: column;
+            margin-left: 400px;
+            align-items: flex-start;
+            margin-top: -80px;
+        }
+
+        .input-bar input{
+          width: 234px;
+          height: 44px;  
+          border: none;
+          border-radius: 12px;
+          background-color: var(--grey);
+          padding-left: 20px;
+          color: #919191;
+        }
+
+        .input-bar button{
+            width: 134px;
+            height: 44px;
+            border-radius: 12px;
+            border: none;
+            background-color: var(--dusty-rose);
+            font-size: 14px;
+            color: var(--cream);
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .input-bar button:hover{
+            background-color: var(--dark-brown);
+        }
+
+        .socials{
+            display: flex;
+            gap: 20px;
+            padding-top: 30px;
+            padding-left: 50px;
+        }
+
+        .socials svg{
+            width: 25px;
+            cursor: pointer;
+            height: 25px;
+        }
+
         /*Pentru telefon*/
         @media (max-width: 1024px) {
             header {

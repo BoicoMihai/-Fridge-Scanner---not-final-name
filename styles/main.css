@@ -288,6 +288,7 @@
             background-color: var(--dusty-rose);
             color: var(--cream);
             border-color: var(--dusty-rose);
+            cursor: pointer;
         }
 
         .Site-map{

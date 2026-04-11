@@ -8,9 +8,9 @@ window.onload = () => {
 async function search() {
   const q = document.getElementById('q').value;
   document.getElementById('out').innerHTML = 'Se încarcă';
-  const res = await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${q}&number=1&addRecipeNutrition=true&addRecipeInstructions=true&apiKey=${KEY}`);
+  const res = await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${q}&number=10&addRecipeNutrition=true&addRecipeInstructions=true&apiKey=${KEY}`);
   const data = await res.json();
-  const r = data.results[0];
+  const r = data.results[Math.floor(Math.random() * data.results.length)];
 
   if (!r) { document.getElementById('out').innerHTML = 'Nici o rețetă găsită'; return; }
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rețete</title>
-   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/page.css">
 </head>
 <body>
@@ -18,15 +18,39 @@
   </div>
 </nav>
 
-<div style="position: relative; display: inline-block;">
-  <input type="text" id="ghost" disabled style="position: absolute; left: 0; top: 0; color: #aaa; border: 1px solid transparent; font-size: 14px; font-family: sans-serif; padding: 2px 4px; pointer-events: none;">
-  <input type="text" id="q" placeholder="Scrie produsele tale" onfocus="showHistory()" onblur="hideHistory()" oninput="ingredientSuggest()" onkeydown="handleKey(event)" style="position: relative; z-index: 2;background: transparent; font-size: 14px; font-family: sans-serif; padding: 2px 4px;">
+<div class="hero">
+  <div class="search-card">
+    <label>what's in your fridge?</label>
+    <div class="input-row">
+      <div class="input-wrapper">
+        <input type="text" id="ghost" disabled>
+        <input type="text" id="q"
+          placeholder="scrie un ingredient..."
+          onfocus="showHistory()"
+          onblur="hideHistory()"
+          oninput="ingredientSuggest()"
+          onkeydown="handleKey(event)">
+      </div>
+      <button class="btn-search" onclick="search()">caută</button>
+      <button class="btn-random" onclick="randomRecipe()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="17 1 21 5 17 9"/>
+          <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+          <polyline points="7 23 3 19 7 15"/>
+          <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+        </svg>
+      </button>
+    </div>
+    <div id="dropdown"></div>
+  </div>
 </div>
-<button onclick="search()">Caută</button>
-<button onclick="randomRecipe()">Random</button>
-<div id="dropdown"></div>
 
-<div id="out"></div>
+<div class="results-section">
+  <div id="loading" class="hidden">
+    <div class="spinner"></div>
+    <span>Se încarcă rețeta...</span>
+  </div>
+</div>
 
 <script src="src/main.js"></script>
 </body>

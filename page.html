@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8">
-    <title>Rețete</title>
+<head>
+  <meta charset="UTF-8">
+  <title>Rețete</title>
 </head>
 <body>
 
-<input type="text" id="q" placeholder="Scrie produsele tale" onfocus="showHistory()" onblur="hideHistory()" oninput="showHistory()">
+<div style="position: relative; display: inline-block;">
+  <input type="text" id="ghost" disabled style="position: absolute; left: 0; top: 0; color: #aaa; border: 1px solid transparent; font-size: 14px; font-family: sans-serif; padding: 2px 4px; pointer-events: none;">
+  <input type="text" id="q" placeholder="Scrie produsele tale" onfocus="showHistory()" onblur="hideHistory()" oninput="ingredientSuggest()" onkeydown="handleKey(event)" style="position: relative; z-index: 2;background: transparent; font-size: 14px; font-family: sans-serif; padding: 2px 4px;">
+</div>
 <button onclick="search()">Caută</button>
 
 <div id="dropdown"></div>

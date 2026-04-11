@@ -10,6 +10,7 @@
   --brown: #6b3a2a;
   --brown-dark: #4a2519;
   --brown-light: #a0614e;
+  --yellow-note: #f5e97a;
   --text: #2c1a10;
   --text-muted: #7a5c4e;
   --card-bg: #ffffff;
@@ -38,11 +39,17 @@ nav {
 }
 
 .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: 'Playfair Display', serif;
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--brown-dark);
+  text-decoration: none;
 }
+
+.nav-logo svg { color: var(--brown); }
 
 .nav-links {
   display: flex;
@@ -243,6 +250,77 @@ nav {
   color: #c33;
 }
 
+/* ── NOTE CARD ── */
+
+.note-card {
+  background: var(--yellow-note);
+  border-radius: 4px 12px 12px 4px;
+  padding: 1.5rem 1.75rem;
+  min-width: 280px;
+  max-width: 340px;
+  flex: 1;
+  min-height: 160px;
+  position: relative;
+  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.1);
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    rgba(0, 0, 0, 0.07) 28px
+  );
+  background-size: 100% 28px;
+}
+
+.note-pin {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  background: #c0392b;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.note-pin::after {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 10px;
+  background: #7f8c8d;
+  border-radius: 0 0 2px 2px;
+}
+
+#note-content {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: #5a4a00;
+  line-height: 28px;
+  min-height: 110px;
+}
+
+.note-placeholder {
+  color: rgba(90, 74, 0, 0.4);
+  font-style: italic;
+}
+
+.note-tag {
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.1);
+  color: #5a4000;
+  border-radius: 4px;
+  padding: 1px 8px;
+  font-size: 0.82rem;
+  margin: 2px 3px 2px 0;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.note-tag:hover { background: rgba(0, 0, 0, 0.18); }
+
 /* ── RESULTS ── */
 
 .results-section {
@@ -255,7 +333,7 @@ nav {
 
 /* ── LOADING ── */
 
-#loading {
+#loading.visible {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -264,7 +342,7 @@ nav {
   font-size: 0.95rem;
   padding: 2rem 0;
 }
- 
+
 .spinner {
   width: 18px;
   height: 18px;
@@ -273,5 +351,108 @@ nav {
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
- 
+
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── RECIPE CARD ── */
+
+#recipe-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 32px rgba(107, 58, 42, 0.1);
+  width: 100%;
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#recipe-img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.recipe-body {
+  padding: 1.5rem 2rem 2rem;
+}
+
+.recipe-body h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--brown-dark);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.recipe-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+}
+
+.dot { opacity: 0.4; }
+
+.recipe-nutrients {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.nutrient-chip {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 8px;
+  text-align: center;
+}
+
+.nutrient-chip .n-icon {
+  font-size: 16px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.nutrient-chip .n-value {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--brown);
+  display: block;
+}
+
+.nutrient-chip .n-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+}
+
+.recipe-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--brown);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 100px;
+  padding: 10px 22px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.recipe-link:hover {
+  background: var(--brown-dark);
+  transform: translateY(-1px);
+}

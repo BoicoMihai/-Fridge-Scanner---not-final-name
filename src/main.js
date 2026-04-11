@@ -170,9 +170,11 @@ async function ingredientSuggest() {
     if (!data.length) { ghost.value = ''; return; }
 
     const suggestion = data[0].name;
-    ghost.value = suggestion.toLowerCase().startsWith(q.toLowerCase())
-      ? suggestion
-      : '';
+    if (suggestion.toLowerCase().startsWith(q.toLowerCase())) {
+      ghost.value = q + suggestion.slice(q.length);
+    } else {
+      ghost.value = '';
+    }
   } catch (e) {
     ghost.value = '';
   }

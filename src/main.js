@@ -1,4 +1,4 @@
-const KEY = 'b5c5cbce124744faaff1a8f13541ae45';
+const KEY = '9a770625c7364a93b2a241be26c282a4';
 
 window.onload = () => {
   const rezultat = localStorage.getItem('rezultat');

@@ -2,47 +2,62 @@ const KEY = '5c8a4ac9551a41588d024990779707ee';
 
 window.onload = () => {
   const rezultat = localStorage.getItem('rezultat');
-  if (rezultat) document.getElementById('out').innerHTML = rezultat;
+  if (rezultat) {
+    try {
+      const saved = JSON.parse(rezultat);
+      if (saved && saved.title) renderRecipe(saved);
+    } catch (e) {
+      localStorage.removeItem('rezultat');
+    }
+  }
 };
 
-async function search() {
-  const q = document.getElementById('q').value;
-  document.getElementById('out').innerHTML = 'Se încarcă';
-  const res = await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${q}&number=10&addRecipeNutrition=true&addRecipeInstructions=true&apiKey=${KEY}`);
-  const data = await res.json();
-  const r = data.results[Math.floor(Math.random() * data.results.length)];
+function showLoading() {
+  document.getElementById('loading').classList.add('visible');
+  document.getElementById('recipe-card').classList.add('hidden');
+}
 
-  if (!r) { document.getElementById('out').innerHTML = 'Nici o rețetă găsită'; return; }
-
+function renderRecipe(r) {
   const getNutrient = (name) => {
     const found = r.nutrition?.nutrients?.find(n => n.name === name);
     return found ? `${Math.round(found.amount)}${found.unit}` : 'N/A';
   };
 
-  const steps = r.analyzedInstructions?.[0]?.steps ?? [];
-  const stepsHTML = steps.length
-    ? `<ol>${steps.map(s => `<li>${s.step}</li>`).join('')}</ol>`
-    : '<p>Nu există pași disponibili.</p>';
+  document.getElementById('recipe-img').src = r.image || '';
+  document.getElementById('recipe-img').alt = r.title || '';
+  document.getElementById('recipe-title').textContent = r.title || '';
+  document.getElementById('recipe-time').textContent = `${r.readyInMinutes} min`;
+  document.getElementById('recipe-servings').textContent = `${r.servings} porții`;
+  document.getElementById('n-calories').textContent = getNutrient('Calories');
+  document.getElementById('n-protein').textContent = getNutrient('Protein');
+  document.getElementById('n-carbs').textContent = getNutrient('Carbohydrates');
+  document.getElementById('n-fat').textContent = getNutrient('Fat');
+  document.getElementById('recipe-link').href = r.sourceUrl || '#';
 
-  document.getElementById('out').innerHTML = `
-    <hr>
-    <img src="${r.image}" width="300"><br>
-    <h2>${r.title}</h2>
-    <p>⏱ ${r.readyInMinutes} min | ${r.servings} porții</p>
-    <p>
-      🔥 Calorii: ${getNutrient('Calories')} &nbsp;|&nbsp;
-      🥩 Proteine: ${getNutrient('Protein')} &nbsp;|&nbsp;
-      🍞 Carbohidrați: ${getNutrient('Carbohydrates')} &nbsp;|&nbsp;
-      🧈 Grăsimi: ${getNutrient('Fat')}
-    </p>
-    <h3>Pași</h3>
-    ${stepsHTML}
-    <a href="${r.sourceUrl}" target="_blank">Vezi rețeta completă</a>
-  `;
+  document.getElementById('loading').classList.remove('visible');
+  document.getElementById('recipe-card').classList.remove('hidden');
+
+  localStorage.setItem('rezultat', JSON.stringify(r));
+}
+
+async function search() {
+  const q = document.getElementById('q').value;
+  showLoading();
+
+  const res = await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${q}&number=10&addRecipeNutrition=true&addRecipeInstructions=true&apiKey=${KEY}`);
+  const data = await res.json();
+  const r = data.results[Math.floor(Math.random() * data.results.length)];
+
+  if (!r) {
+    document.getElementById('loading').classList.add('hidden');
+    return;
+  }
+
   const history = JSON.parse(localStorage.getItem('istoric') || '[]');
   if (!history.includes(q)) history.unshift(q);
   localStorage.setItem('istoric', JSON.stringify(history.slice(0, 10)));
-  localStorage.setItem('rezultat', document.getElementById('out').innerHTML);
+
+  renderRecipe(r);
 }
 
 function showHistory() {
@@ -105,36 +120,16 @@ function handleKey(e) {
 }
 
 async function randomRecipe() {
-  document.getElementById('out').innerHTML = 'Se încarcă...';
+  showLoading();
+
   const res = await fetch(`https://api.spoonacular.com/recipes/random?number=1&addRecipeNutrition=true&addRecipeInstructions=true&apiKey=${KEY}`);
   const data = await res.json();
   const r = data.recipes[0];
 
-  if (!r) { document.getElementById('out').innerHTML = 'Eroare'; return; }
+  if (!r) {
+    document.getElementById('loading').classList.add('hidden');
+    return;
+  }
 
-  const getNutrient = (name) => {
-    const found = r.nutrition?.nutrients?.find(n => n.name === name);
-    return found ? `${Math.round(found.amount)}${found.unit}` : 'N/A';
-  };
-
-  const steps = r.analyzedInstructions?.[0]?.steps ?? [];
-  const stepsHTML = steps.length
-    ? `<ol>${steps.map(s => `<li>${s.step}</li>`).join('')}</ol>`
-    : '<p>Nu există pași disponibili.</p>';
-
-  document.getElementById('out').innerHTML = `
-    <hr>
-    <img src="${r.image}" width="300"><br>
-    <h2>${r.title}</h2>
-    <p>⏱ ${r.readyInMinutes} min | ${r.servings} porții</p>
-    <p>
-      🔥 Calorii: ${getNutrient('Calories')} &nbsp;|&nbsp;
-      🥩 Proteine: ${getNutrient('Protein')} &nbsp;|&nbsp;
-      🍞 Carbohidrați: ${getNutrient('Carbohydrates')} &nbsp;|&nbsp;
-      🧈 Grăsimi: ${getNutrient('Fat')}
-    </p>
-    <h3>Pași</h3>
-    ${stepsHTML}
-    <a href="${r.sourceUrl}" target="_blank">Vezi rețeta completă</a>
-  `;
+  renderRecipe(r);
 }

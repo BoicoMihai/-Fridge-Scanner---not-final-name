@@ -46,10 +46,55 @@
 </div>
 
 <div class="results-section">
+ 
   <div id="loading" class="hidden">
     <div class="spinner"></div>
     <span>Se încarcă rețeta...</span>
   </div>
+ 
+  <div id="recipe-card" class="hidden">
+    <img id="recipe-img" src="" alt="">
+    <div class="recipe-body">
+      <h2 id="recipe-title"></h2>
+      <div class="recipe-meta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <span id="recipe-time"></span>
+        <span class="dot">·</span>
+        <span id="recipe-servings"></span>
+      </div>
+      <div class="recipe-nutrients">
+        <div class="nutrient-chip">
+          <span class="n-icon">🔥</span>
+          <span class="n-value" id="n-calories"></span>
+          <span class="n-label">Calorii</span>
+        </div>
+        <div class="nutrient-chip">
+          <span class="n-icon">🥩</span>
+          <span class="n-value" id="n-protein"></span>
+          <span class="n-label">Proteine</span>
+        </div>
+        <div class="nutrient-chip">
+          <span class="n-icon">🍞</span>
+          <span class="n-value" id="n-carbs"></span>
+          <span class="n-label">Carbohidrați</span>
+        </div>
+        <div class="nutrient-chip">
+          <span class="n-icon">🧈</span>
+          <span class="n-value" id="n-fat"></span>
+          <span class="n-label">Grăsimi</span>
+        </div>
+      </div>
+      <a id="recipe-link" href="#" target="_blank" class="recipe-link">
+        Vezi rețeta completă
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+ 
 </div>
 
 <script src="src/main.js"></script>

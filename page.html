@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rețete</title>
+  <title>Fridge Scanner</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/page.css">
 </head>
@@ -14,7 +14,7 @@
   <div class="nav-links">
     <a href="#">Despre noi</a>
     <a href="#">Contact</a>
-    <button class="btn-discover" onclick="randomRecipe()">Descoperă</button>
+    <button class="btn-discover">Descoperă</button>
   </div>
 </nav>
 
@@ -24,21 +24,13 @@
     <div class="input-row">
       <div class="input-wrapper">
         <input type="text" id="ghost" disabled>
-        <input type="text" id="q"
-          placeholder="scrie un ingredient..."
-          onfocus="showHistory()"
-          onblur="hideHistory()"
-          oninput="ingredientSuggest()"
-          onkeydown="handleKey(event)">
+        <input type="text" id="q" placeholder="scrie un ingredient..." onfocus="showHistory()" onblur="hideHistory()" oninput="ingredientSuggest()" onkeydown="handleKey(event)">
       </div>
-      <button class="btn-search" onclick="search()">caută</button>
+      <button id="btn-search" onclick="search()">
+         <img src="images/search.png" alt="search" width="18" height="18" id="search-icon">
+       </button>
       <button class="btn-random" onclick="randomRecipe()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="17 1 21 5 17 9"/>
-          <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
-          <polyline points="7 23 3 19 7 15"/>
-          <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
-        </svg>
+        <img src="images/random.png" alt="random" id="random">
       </button>
     </div>
     <div id="dropdown"></div>
@@ -46,55 +38,11 @@
 </div>
 
 <div class="results-section">
- 
   <div id="loading" class="hidden">
     <div class="spinner"></div>
     <span>Se încarcă rețeta...</span>
   </div>
- 
-  <div id="recipe-card" class="hidden">
-    <img id="recipe-img" src="" alt="">
-    <div class="recipe-body">
-      <h2 id="recipe-title"></h2>
-      <div class="recipe-meta">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        <span id="recipe-time"></span>
-        <span class="dot">·</span>
-        <span id="recipe-servings"></span>
-      </div>
-      <div class="recipe-nutrients">
-        <div class="nutrient-chip">
-          <span class="n-icon">🔥</span>
-          <span class="n-value" id="n-calories"></span>
-          <span class="n-label">Calorii</span>
-        </div>
-        <div class="nutrient-chip">
-          <span class="n-icon">🥩</span>
-          <span class="n-value" id="n-protein"></span>
-          <span class="n-label">Proteine</span>
-        </div>
-        <div class="nutrient-chip">
-          <span class="n-icon">🍞</span>
-          <span class="n-value" id="n-carbs"></span>
-          <span class="n-label">Carbohidrați</span>
-        </div>
-        <div class="nutrient-chip">
-          <span class="n-icon">🧈</span>
-          <span class="n-value" id="n-fat"></span>
-          <span class="n-label">Grăsimi</span>
-        </div>
-      </div>
-      <a id="recipe-link" href="#" target="_blank" class="recipe-link">
-        Vezi rețeta completă
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-          <polyline points="15 3 21 3 21 9"/>
-          <line x1="10" y1="14" x2="21" y2="3"/>
-        </svg>
-      </a>
-    </div>
-  </div>
- 
+  <div id="recipe-card" class="hidden"></div>
 </div>
 
 <script src="src/main.js"></script>

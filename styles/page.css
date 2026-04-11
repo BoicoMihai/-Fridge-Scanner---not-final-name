@@ -24,8 +24,6 @@ body {
   min-height: 100vh;
 }
 
-/* ── NAV ── */
-
 nav {
   display: flex;
   align-items: center;
@@ -83,8 +81,6 @@ nav {
   transform: translateY(-1px);
 }
 
-/* ── HERO ── */
-
 .hero {
   display: flex;
   align-items: flex-start;
@@ -94,8 +90,6 @@ nav {
   max-width: 1100px;
   margin: 0 auto;
 }
-
-/* ── SEARCH CARD ── */
 
 .search-card {
   background: var(--cream-dark);
@@ -161,45 +155,64 @@ nav {
   box-shadow: 0 0 0 3px rgba(107, 58, 42, 0.1);
 }
 
-.btn-search {
+#btn-search {
   background: var(--brown);
-  color: #fff;
   border: none;
-  border-radius: 10px;
-  padding: 10px 18px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
+  border-radius: 50%;
+  padding: 13px;
   cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
 }
 
-.btn-search:hover {
+#btn-search:hover {
   background: var(--brown-dark);
-  transform: translateY(-1px);
+}
+
+#btn-search #search-icon {
+  filter: invert(1);
+}
+
+.search-icon {
+  filter: invert(20%) sepia(50%) grayscale(30%) brightness(90%);
+  width: 18px;
+  height: 18px;
+}
+
+.btn-search:hover .search-icon {
+  filter: invert(1);
+}
+
+#random {
+  filter: invert(20%) sepia(50%) grayscale(30%) brightness(90%);
+  width: 24px;
+  height: 24px;
 }
 
 .btn-random {
   background: transparent;
   color: var(--brown);
   border: 1.5px solid var(--brown-light);
-  border-radius: 10px;
-  padding: 9px 11px;
+  border-radius: 50%;
+  padding: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s;
   flex-shrink: 0;
 }
 
 .btn-random:hover {
   background: var(--brown);
-  color: #fff;
 }
 
-/* ── DROPDOWN ── */
+.btn-random:hover #random {
+  filter: invert(1);
+}
 
 #dropdown {
   background: var(--card-bg);
@@ -249,8 +262,6 @@ nav {
   background: #fee;
   color: #c33;
 }
-
-/* ── NOTE CARD ── */
 
 .note-card {
   background: var(--yellow-note);
@@ -321,8 +332,6 @@ nav {
 
 .note-tag:hover { background: rgba(0, 0, 0, 0.18); }
 
-/* ── RESULTS ── */
-
 .results-section {
   max-width: 600px;
   margin: 2.5rem auto 4rem;
@@ -330,8 +339,6 @@ nav {
 }
 
 .hidden { display: none; }
-
-/* ── LOADING ── */
 
 #loading.visible {
   display: flex;
@@ -353,8 +360,6 @@ nav {
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
-
-/* ── RECIPE CARD ── */
 
 #recipe-card {
   background: var(--card-bg);

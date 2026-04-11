@@ -75,3 +75,31 @@ function deleteItem(val) {
   localStorage.setItem('istoric', JSON.stringify(history));
   showHistory();
 }
+
+async function ingredientSuggest() {
+  const q = document.getElementById('q').value;
+  const ghost = document.getElementById('ghost');
+
+  if (q.length < 2) { ghost.value = ''; showHistory(); return; }
+
+  const res = await fetch(`https://api.spoonacular.com/food/ingredients/autocomplete?query=${q}&number=1&apiKey=${KEY}`);
+  const data = await res.json();
+
+  if (!data.length) { ghost.value = ''; return; }
+
+  const suggestion = data[0].name;
+  ghost.value = suggestion.toLowerCase().startsWith(q.toLowerCase())
+    ? suggestion
+    : '';
+}
+
+function handleKey(e) {
+  if (e.key === 'Tab' || e.key === 'ArrowRight') {
+    const ghost = document.getElementById('ghost');
+    if (ghost.value) {
+      e.preventDefault();
+      document.getElementById('q').value = ghost.value;
+      ghost.value = '';
+    }
+  }
+}

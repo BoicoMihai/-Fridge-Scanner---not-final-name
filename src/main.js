@@ -46,14 +46,49 @@ function showLoading() {
   document.getElementById('recipe-card').classList.add('hidden');
 }
 
+function isFavorited(recipeId) {
+  const favorites = JSON.parse(localStorage.getItem('favorite_recipes') || '[]');
+  return favorites.some(r => r.id === recipeId);
+}
+
+function toggleFavorite(recipe) {
+  let favorites = JSON.parse(localStorage.getItem('favorite_recipes') || '[]');
+  const index = favorites.findIndex(r => r.id === recipe.id);
+
+  if (index > -1) {
+    favorites.splice(index, 1);
+  } else {
+    favorites.push(recipe);
+  }
+
+  localStorage.setItem('favorite_recipes', JSON.stringify(favorites));
+  updateFavoriteButton(recipe.id);
+}
+
+function updateFavoriteButton(recipeId) {
+  const btn = document.getElementById('favorite-btn');
+  if (btn) {
+    const isFav = isFavorited(recipeId);
+    btn.classList.toggle('favorited', isFav);
+    btn.innerHTML = isFav ? '♥ Salvat' : '♡ Salvează';
+  }
+}
+
 function renderRecipe(r) {
   const getNutrient = (name) => {
     const found = r.nutrition?.nutrients?.find(n => n.name === name);
     return found ? `${Math.round(found.amount)}${found.unit}` : 'N/A';
   };
 
+  const isFav = isFavorited(r.id);
+
   document.getElementById('recipe-card').innerHTML = `
-    <img src="${r.image || ''}" alt="${r.title || ''}">
+    <div class="recipe-header">
+      <img src="${r.image || ''}" alt="${r.title || ''}">
+      <button id="favorite-btn" class="favorite-btn ${isFav ? 'favorited' : ''}" onclick="toggleFavorite(${JSON.stringify(r).replace(/"/g, '&quot;')})">
+        ${isFav ? '♥ Salvat' : '♡ Salveaza'}
+      </button>
+    </div>
     <div class="recipe-body">
       <h2>${r.title || ''}</h2>
       <div class="recipe-meta">
@@ -211,3 +246,64 @@ async function randomRecipe() {
     document.getElementById('loading').classList.add('hidden');
   }
 }
+
+//-------//
+function showFavorites() {
+  const favorites = JSON.parse(localStorage.getItem('favorite_recipes') || '[]');
+  const modal = document.getElementById('favorites-modal');
+  const list = document.getElementById('favorites-list');
+
+  if (favorites.length === 0) {
+    list.innerHTML = '<p class="no-favorites">Nu ai salvat nicio rețetă.</p>';
+  } else {
+    list.innerHTML = favorites.map(recipe => `
+      <div class="favorite-item">
+        <div class="favorite-item-image">
+          <img src="${recipe.image || ''}" alt="${recipe.title}">
+        </div>
+        <div class="favorite-item-info">
+          <h3>${recipe.title}</h3>
+          <p class="favorite-meta">
+            <span>⏱ ${recipe.readyInMinutes} min</span>
+            <span class="dot">·</span>
+            <span>🍽 ${recipe.servings} porții</span>
+          </p>
+        </div>
+        <div class="favorite-item-actions">
+          <button class="view-recipe-btn" onclick="loadFavorite(${JSON.stringify(recipe).replace(/"/g, '&quot;')})">
+            Vezi
+          </button>
+          <button class="remove-favorite-btn" onclick="removeFavorite(${recipe.id})">
+            ✕
+          </button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  modal.classList.remove('hidden');
+}
+
+function closeFavorites() {
+  document.getElementById('favorites-modal').classList.add('hidden');
+}
+
+function loadFavorite(recipe) {
+  closeFavorites();
+  renderRecipe(recipe);
+  document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' });
+}
+
+function removeFavorite(recipeId) {
+  let favorites = JSON.parse(localStorage.getItem('favorite_recipes') || '[]');
+  favorites = favorites.filter(r => r.id !== recipeId);
+  localStorage.setItem('favorite_recipes', JSON.stringify(favorites));
+  showFavorites();
+}
+
+document.addEventListener('click', (e) => {
+  const modal = document.getElementById('favorites-modal');
+  if (modal && e.target === modal) {
+    closeFavorites();
+  }
+});

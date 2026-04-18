@@ -14,6 +14,7 @@
   <div class="nav-links">
     <a href="#">Despre noi</a>
     <a href="#">Contact</a>
+    <a href="#" onclick="showFavorites(); return false;" class="nav-favorites">Favorite</a>
     <button class="btn-discover">Descoperă</button>
   </div>
 </nav>
@@ -43,6 +44,15 @@
     <span>Se încarcă rețeta...</span>
   </div>
   <div id="recipe-card" class="hidden"></div>
+  <div id="favorites-modal" class="favorites-modal hidden">
+    <div class="favorites-content">
+      <div class="favorites-header">
+        <h2>Rețete Favorite</h2>
+        <button class="close-favorites" onclick="closeFavorites()">✕</button>
+      </div>
+      <div id="favorites-list"></div>
+    </div>
+  </div>
 </div>
 
 <script src="src/main.js"></script>

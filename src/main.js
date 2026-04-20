@@ -70,7 +70,7 @@ function updateFavoriteButton(recipeId) {
   if (btn) {
     const isFav = isFavorited(recipeId);
     btn.classList.toggle('favorited', isFav);
-    btn.innerHTML = isFav ? '♥ Salvat' : '♡ Salvează';
+    btn.innerHTML = `<img src="images/${isFav ? 'heart' : 'no-heart'}.png" alt="favorite" width="16" height="16"> ${isFav ? 'Salvat' : 'Salvează'}`;
   }
 }
 
@@ -86,7 +86,7 @@ function renderRecipe(r) {
     <div class="recipe-header">
       <img src="${r.image || ''}" alt="${r.title || ''}">
       <button id="favorite-btn" class="favorite-btn ${isFav ? 'favorited' : ''}" onclick="toggleFavorite(${JSON.stringify(r).replace(/"/g, '&quot;')})">
-        ${isFav ? '♥ Salvat' : '♡ Salveaza'}
+        <img src="images/${isFav ? 'heart' : 'no-heart'}.png" alt="favorite" width="16" height="16"> ${isFav ? 'Salvat' : 'Salveaza'}
       </button>
     </div>
     <div class="recipe-body">
@@ -99,28 +99,28 @@ function renderRecipe(r) {
         <span class="dot">·</span>
         <span>${r.servings} porții</span>
       </div>
-      <div class="recipe-nutrients">
-        <div class="nutrient-chip">
-          <span class="n-icon">🔥</span>
-          <span class="n-value">${getNutrient('Calories')}</span>
-          <span class="n-label">Calorii</span>
-        </div>
-        <div class="nutrient-chip">
-          <span class="n-icon">🥩</span>
-          <span class="n-value">${getNutrient('Protein')}</span>
-          <span class="n-label">Proteine</span>
-        </div>
-        <div class="nutrient-chip">
-          <span class="n-icon">🍞</span>
-          <span class="n-value">${getNutrient('Carbohydrates')}</span>
-          <span class="n-label">Carbohidrați</span>
-        </div>
-        <div class="nutrient-chip">
-          <span class="n-icon">🧈</span>
-          <span class="n-value">${getNutrient('Fat')}</span>
-          <span class="n-label">Grăsimi</span>
-        </div>
-      </div>
+<div class="recipe-nutrients">
+  <div class="nutrient-chip">
+    <img src="images/calories.png" alt="calorii" class="nutrient-icon">
+    <span class="n-value">${getNutrient('Calories')}</span>
+    <span class="n-label">Calorii</span>
+  </div>
+  <div class="nutrient-chip">
+    <img src="images/protein.png" alt="proteine" class="nutrient-icon">
+    <span class="n-value">${getNutrient('Protein')}</span>
+    <span class="n-label">Proteine</span>
+  </div>
+  <div class="nutrient-chip">
+    <img src="images/carbohydrates.png" alt="carbohidrați" class="nutrient-icon">
+    <span class="n-value">${getNutrient('Carbohydrates')}</span>
+    <span class="n-label">Carbohidrați</span>
+  </div>
+  <div class="nutrient-chip">
+    <img src="images/grease.png" alt="grăsimi" class="nutrient-icon">
+    <span class="n-value">${getNutrient('Fat')}</span>
+    <span class="n-label">Grăsimi</span>
+  </div>
+</div>
       <a href="${r.sourceUrl || '#'}" target="_blank" class="recipe-link">
         Vezi rețeta completă
       </a>

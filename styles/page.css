@@ -7,6 +7,7 @@
 :root {
   --cream: #f5f0e8;
   --cream-dark: #ede6d6;
+  --cream-mid: #e8dfc8;
   --brown: #6b3a2a;
   --brown-dark: #4a2519;
   --brown-light: #a0614e;
@@ -14,8 +15,10 @@
   --text: #2c1a10;
   --text-muted: #7a5c4e;
   --card-bg: #ffffff;
-  --border: rgba(107, 58, 42, 0.15);
+  --border: rgba(107, 58, 42, 0.13);
   --heart-red: #e74c3c;
+  --shadow-soft: 0 4px 24px rgba(107, 58, 42, 0.08);
+  --shadow-card: 0 8px 40px rgba(107, 58, 42, 0.11);
 }
 
 body {
@@ -29,8 +32,10 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.1rem 3rem;
-  background: var(--cream);
+  padding: 1rem 3rem;
+  background: rgba(245, 240, 232, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -42,10 +47,11 @@ nav {
   align-items: center;
   gap: 10px;
   font-family: 'Playfair Display', serif;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--brown-dark);
   text-decoration: none;
+  letter-spacing: -0.01em;
 }
 
 .nav-logo svg { color: var(--brown); }
@@ -53,42 +59,44 @@ nav {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 
 .nav-links a {
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
   text-decoration: none;
   transition: color 0.2s;
+  font-weight: 400;
 }
 
 .nav-links a:hover { color: var(--brown); }
 
 .nav-favorites {
-  font-weight: 500;
-  color: var(--brown);
+  font-weight: 500 !important;
+  color: var(--brown) !important;
 }
 
-.nav-favorites:hover {
-  color: var(--brown-dark);
-}
+.nav-favorites:hover { color: var(--brown-dark) !important; }
 
 .btn-discover {
   background: var(--brown);
   color: #fff;
   border: none;
-  padding: 0.5rem 1.25rem;
+  padding: 0.48rem 1.3rem;
   border-radius: 100px;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 2px 12px rgba(107, 58, 42, 0.2);
 }
 
 .btn-discover:hover {
   background: var(--brown-dark);
   transform: translateY(-1px);
+  box-shadow: 0 4px 18px rgba(107, 58, 42, 0.28);
 }
 
 .hero {
@@ -96,7 +104,7 @@ nav {
   align-items: flex-start;
   justify-content: center;
   gap: 2rem;
-  padding: 3rem 3rem 1rem;
+  padding: 3.5rem 3rem 1.5rem;
   max-width: 1100px;
   margin: 0 auto;
 }
@@ -104,10 +112,11 @@ nav {
 .search-card {
   background: var(--cream-dark);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 2rem;
+  border-radius: 18px;
+  padding: 2rem 2rem 1.75rem;
   width: 400px;
   flex-shrink: 0;
+  box-shadow: var(--shadow-soft);
 }
 
 .search-card label {
@@ -115,8 +124,9 @@ nav {
   font-family: 'Playfair Display', serif;
   font-style: italic;
   color: var(--text-muted);
-  font-size: 0.95rem;
-  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.9rem;
+  letter-spacing: 0.01em;
 }
 
 .input-row {
@@ -142,7 +152,7 @@ nav {
 
 #ghost {
   background: var(--card-bg);
-  color: #bbb;
+  color: #c8bdb8;
   pointer-events: none;
   outline: none;
   z-index: 0;
@@ -154,11 +164,12 @@ nav {
   outline: none;
   z-index: 1;
   border-color: var(--border);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 #q:focus {
   border-color: var(--brown-light);
-  box-shadow: 0 0 0 3px rgba(107, 58, 42, 0.1);
+  box-shadow: 0 0 0 3px rgba(107, 58, 42, 0.09);
 }
 
 .input-wrapper {
@@ -176,17 +187,18 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
   flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(107, 58, 42, 0.2);
 }
 
 #btn-search:hover {
   background: var(--brown-dark);
+  transform: scale(1.06);
+  box-shadow: 0 4px 16px rgba(107, 58, 42, 0.28);
 }
 
-#btn-search #search-icon {
-  filter: invert(1);
-}
+#btn-search #search-icon { filter: invert(1); }
 
 .search-icon {
   filter: invert(20%) sepia(50%) grayscale(30%) brightness(90%);
@@ -194,14 +206,11 @@ nav {
   height: 18px;
 }
 
-.btn-search:hover .search-icon {
-  filter: invert(1);
-}
-
 #random {
   filter: invert(20%) sepia(50%) grayscale(30%) brightness(90%);
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
+  transition: filter 0.2s;
 }
 
 .btn-random {
@@ -214,32 +223,31 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.15s;
   flex-shrink: 0;
 }
 
 .btn-random:hover {
   background: var(--brown);
+  transform: rotate(30deg) scale(1.05);
 }
 
-.btn-random:hover #random {
-  filter: invert(1);
-}
+.btn-random:hover #random { filter: invert(1); }
 
 #dropdown {
   background: var(--card-bg);
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid var(--border);
-  margin-top: 6px;
+  margin-top: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
 }
 
 #dropdown div {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 8px;
+  padding: 3px 8px;
   margin: 0;
 }
 
@@ -248,8 +256,8 @@ nav {
   background: transparent;
   border: none;
   text-align: left;
-  padding: 6px 8px;
-  border-radius: 6px;
+  padding: 7px 8px;
+  border-radius: 7px;
   cursor: pointer;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
@@ -264,89 +272,17 @@ nav {
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  font-size: 12px;
+  font-size: 11px;
   padding: 4px 6px;
   border-radius: 6px;
   transition: background 0.15s, color 0.15s;
 }
 
-#dropdown button:last-child:hover {
-  background: #fee;
-  color: #c33;
-}
-
-.note-card {
-  background: var(--yellow-note);
-  border-radius: 4px 12px 12px 4px;
-  padding: 1.5rem 1.75rem;
-  min-width: 280px;
-  max-width: 340px;
-  flex: 1;
-  min-height: 160px;
-  position: relative;
-  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.1);
-  background-image: repeating-linear-gradient(
-    transparent,
-    transparent 27px,
-    rgba(0, 0, 0, 0.07) 28px
-  );
-  background-size: 100% 28px;
-}
-
-.note-pin {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 16px;
-  height: 16px;
-  background: #c0392b;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.note-pin::after {
-  content: '';
-  position: absolute;
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 10px;
-  background: #7f8c8d;
-  border-radius: 0 0 2px 2px;
-}
-
-#note-content {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem;
-  color: #5a4a00;
-  line-height: 28px;
-  min-height: 110px;
-}
-
-.note-placeholder {
-  color: rgba(90, 74, 0, 0.4);
-  font-style: italic;
-}
-
-.note-tag {
-  display: inline-block;
-  background: rgba(0, 0, 0, 0.1);
-  color: #5a4000;
-  border-radius: 4px;
-  padding: 1px 8px;
-  font-size: 0.82rem;
-  margin: 2px 3px 2px 0;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.note-tag:hover { background: rgba(0, 0, 0, 0.18); }
+#dropdown button:last-child:hover { background: #fee; color: #c33; }
 
 .results-section {
   max-width: 600px;
-  margin: 2.5rem auto 4rem;
+  margin: 2.5rem auto 5rem;
   padding: 0 1.5rem;
   position: relative;
 }
@@ -359,8 +295,8 @@ nav {
   justify-content: center;
   gap: 10px;
   color: var(--text-muted);
-  font-size: 0.95rem;
-  padding: 2rem 0;
+  font-size: 0.9rem;
+  padding: 2.5rem 0;
 }
 
 .spinner {
@@ -376,16 +312,16 @@ nav {
 
 #recipe-card {
   background: var(--card-bg);
-  border-radius: 20px;
+  border-radius: 22px;
   overflow: hidden;
   border: 1px solid var(--border);
-  box-shadow: 0 8px 32px rgba(107, 58, 42, 0.1);
+  box-shadow: var(--shadow-card);
   width: 100%;
-  animation: slideUp 0.4s ease;
+  animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -394,43 +330,58 @@ nav {
   overflow: hidden;
 }
 
-.recipe-header img {
+.recipe-header > img {
   width: 100%;
   height: 280px;
   object-fit: cover;
   display: block;
+  transition: transform 0.4s ease;
+}
+
+#recipe-card:hover .recipe-header > img {
+  transform: scale(1.02);
 }
 
 .favorite-btn {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 2px solid var(--brown);
+  top: 14px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1.5px solid rgba(107, 58, 42, 0.25);
   color: var(--brown);
-  border-radius: 50px;
-  padding: 8px 14px;
-  font-size: 0.85rem;
+  border-radius: 100px;
+  padding: 7px 14px;
+  font-size: 0.82rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   font-family: 'DM Sans', sans-serif;
   display: flex;
   align-items: center;
-  gap: 4px;
-  backdrop-filter: blur(4px);
+  gap: 5px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .favorite-btn:hover {
   background: var(--brown);
   color: white;
-  transform: scale(1.05);
+  border-color: var(--brown);
+  transform: scale(1.04);
+}
+
+.favorite-btn img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
 }
 
 .favorite-btn.favorited {
   background: var(--heart-red);
   border-color: var(--heart-red);
   color: white;
+  box-shadow: 0 2px 14px rgba(231, 76, 60, 0.3);
 }
 
 .favorite-btn.favorited:hover {
@@ -438,17 +389,16 @@ nav {
   border-color: #c0392b;
 }
 
-.recipe-body {
-  padding: 1.5rem 2rem 2rem;
-}
+.recipe-body { padding: 1.6rem 2rem 2rem; }
 
 .recipe-body h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   font-weight: 600;
   color: var(--brown-dark);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
   line-height: 1.3;
+  letter-spacing: -0.01em;
 }
 
 .recipe-meta {
@@ -456,45 +406,57 @@ nav {
   align-items: center;
   gap: 6px;
   color: var(--text-muted);
-  font-size: 0.875rem;
-  margin-bottom: 1.25rem;
+  font-size: 0.83rem;
+  margin-bottom: 1.3rem;
+  font-weight: 400;
 }
 
-.dot { opacity: 0.4; }
+.dot { opacity: 0.35; }
 
 .recipe-nutrients {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-bottom: 1.5rem;
+  gap: 8px;
+  margin-bottom: 1.6rem;
 }
 
 .nutrient-chip {
   background: var(--cream);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 10px 8px;
+  border-radius: 14px;
+  padding: 12px 8px 10px;
   text-align: center;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 
-.nutrient-chip .n-icon {
-  font-size: 16px;
+.nutrient-chip:hover {
+  border-color: rgba(107, 58, 42, 0.28);
+  box-shadow: 0 2px 10px rgba(107, 58, 42, 0.08);
+  transform: translateY(-1px);
+}
+
+.nutrient-chip .nutrient-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
   display: block;
-  margin-bottom: 4px;
+  margin: 0 auto 6px;
 }
 
 .nutrient-chip .n-value {
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--brown);
   display: block;
+  letter-spacing: -0.01em;
 }
 
 .nutrient-chip .n-label {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--text-muted);
   display: block;
   margin-top: 2px;
+  font-weight: 400;
 }
 
 .recipe-link {
@@ -506,84 +468,90 @@ nav {
   text-decoration: none;
   border-radius: 100px;
   padding: 10px 22px;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 500;
   font-family: 'DM Sans', sans-serif;
-  transition: background 0.2s, transform 0.1s;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 2px 12px rgba(107, 58, 42, 0.2);
 }
 
 .recipe-link:hover {
   background: var(--brown-dark);
   transform: translateY(-1px);
+  box-shadow: 0 4px 18px rgba(107, 58, 42, 0.28);
 }
 
-/*-----*/
 .favorites-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(44, 26, 16, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.25s ease;
 }
 
-.favorites-modal.hidden {
-  display: none !important;
-}
+.favorites-modal.hidden { display: none !important; }
 
 @keyframes fadeIn {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
 .favorites-content {
   background: var(--card-bg);
-  border-radius: 20px;
+  border-radius: 22px;
   width: 90%;
   max-width: 600px;
   max-height: 80vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: slideUp 0.3s ease;
+  box-shadow: 0 24px 64px rgba(44, 26, 16, 0.22);
+  animation: slideUp 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  border: 1px solid var(--border);
 }
 
 .favorites-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 2rem;
+  padding: 1.4rem 2rem;
   border-bottom: 1px solid var(--border);
 }
 
 .favorites-header h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   color: var(--brown-dark);
+  letter-spacing: -0.01em;
 }
 
 .close-favorites {
   background: transparent;
-  border: none;
-  font-size: 1.5rem;
+  border: 1px solid var(--border);
+  font-size: 1rem;
   color: var(--text-muted);
   cursor: pointer;
-  transition: color 0.2s;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
   padding: 0;
   width: 30px;
   height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
 }
 
 .close-favorites:hover {
   color: var(--brown);
+  background: var(--cream);
+  border-color: var(--brown-light);
 }
 
 #favorites-list {
@@ -592,35 +560,40 @@ nav {
   padding: 1rem;
 }
 
+#favorites-list::-webkit-scrollbar { width: 4px; }
+#favorites-list::-webkit-scrollbar-track { background: transparent; }
 #favorites-list::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .no-favorites {
   text-align: center;
   color: var(--text-muted);
-  padding: 2rem;
+  padding: 2.5rem;
   font-style: italic;
+  font-size: 0.9rem;
 }
 
 .favorite-item {
   display: flex;
   gap: 12px;
   padding: 12px;
-  border-radius: 12px;
+  border-radius: 14px;
   border: 1px solid var(--border);
-  margin-bottom: 10px;
-  transition: background 0.2s;
+  margin-bottom: 8px;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 
 .favorite-item:hover {
   background: var(--cream);
+  border-color: rgba(107, 58, 42, 0.22);
+  box-shadow: 0 2px 10px rgba(107, 58, 42, 0.06);
 }
 
 .favorite-item-image {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   border-radius: 10px;
   overflow: hidden;
   flex-shrink: 0;
@@ -630,51 +603,49 @@ nav {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
-.favorite-item-info {
-  flex: 1;
-}
+.favorite-item:hover .favorite-item-image img { transform: scale(1.05); }
+
+.favorite-item-info { flex: 1; }
 
 .favorite-item-info h3 {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--brown-dark);
-  margin-bottom: 4px;
-  line-height: 1.3;
+  margin-bottom: 5px;
+  line-height: 1.35;
+  font-weight: 500;
 }
 
 .favorite-meta {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   display: flex;
   gap: 4px;
   align-items: center;
 }
 
-.favorite-meta .dot {
-  opacity: 0.4;
-}
+.favorite-meta .dot { opacity: 0.35; }
 
-.favorite-item-actions {
-  display: flex;
-  gap: 6px;
-  flex-shrink: 0;
-}
+.favorite-item-actions { display: flex; gap: 6px; flex-shrink: 0; align-items: center; }
 
 .view-recipe-btn {
   background: var(--brown);
   color: white;
   border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.8rem;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.78rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.15s;
   font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
 }
 
 .view-recipe-btn:hover {
   background: var(--brown-dark);
+  transform: translateY(-1px);
 }
 
 .remove-favorite-btn {
@@ -682,14 +653,15 @@ nav {
   color: var(--text-muted);
   border: 1px solid var(--border);
   padding: 6px 10px;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
   font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
 }
 
 .remove-favorite-btn:hover {
   background: #fee;
   color: #c33;
-  border-color: #c33;
+  border-color: rgba(204, 51, 51, 0.3);
 }

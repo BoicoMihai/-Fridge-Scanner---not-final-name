@@ -280,6 +280,150 @@ nav {
 
 #dropdown button:last-child:hover { background: #fee; color: #c33; }
 
+/* DIETARY FILTERS */
+.filters-section {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.filters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  cursor: pointer;
+}
+
+.filters-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-style: normal;
+}
+
+.toggle-filters {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 0;
+  transition: transform 0.25s ease, color 0.2s;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-filters:hover {
+  color: var(--brown);
+}
+
+.filters-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 1rem;
+  padding: 0.75rem 0;
+}
+
+.filters-container.hidden {
+  display: none !important;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+  user-select: none;
+}
+
+.filter-checkbox:hover {
+  background: rgba(107, 58, 42, 0.05);
+}
+
+.filter-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--brown);
+}
+
+.checkbox-label {
+  color: var(--text);
+  font-weight: 400;
+  line-height: 1.2;
+  font-style: normal;
+}
+
+.active-filters {
+  margin-top: 0.8rem;
+}
+
+.filters-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.filter-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--cream-mid);
+  color: var(--brown);
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid rgba(107, 58, 42, 0.2);
+  animation: slideIn 0.2s ease;
+  font-style: normal;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.remove-filter {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  font-size: 0.8rem;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.remove-filter:hover {
+  opacity: 0.7;
+}
+
 .results-section {
   max-width: 600px;
   margin: 2.5rem auto 5rem;

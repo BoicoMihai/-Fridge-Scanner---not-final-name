@@ -5,6 +5,16 @@ const API_KEYS = [
 ];
 
 let currentKeyIndex = 0;
+let activeFilters = {};
+
+const filterMapping = {
+  'vegan': 'vegan',
+  'vegetarian': 'vegetarian',
+  'gluten-free': 'glutenFree',
+  'dairy-free': 'dairyFree',
+  'paleo': 'paleo',
+  'keto': 'ketogenic'
+};
 
 async function fetchWithFallback(urlTemplate) {
   for (let i = currentKeyIndex; i < API_KEYS.length; i++) {
@@ -39,6 +49,7 @@ window.onload = () => {
       localStorage.removeItem('rezultat');
     }
   }
+  loadFiltersFromStorage();
 };
 
 function showLoading() {
@@ -144,13 +155,23 @@ async function search() {
   showLoading();
 
   try {
-    const data = await fetchWithFallback(
-      (key) => `https://api.spoonacular.com/recipes/complexSearch?query=${q}&number=10&addRecipeNutrition=true&addRecipeInstructions=true&apiKey=${key}`
-    );
+    let url = `https://api.spoonacular.com/recipes/complexSearch?query=${q}&number=10&addRecipeNutrition=true&addRecipeInstructions=true`;
+    
+    // Add dietary filters to URL
+    Object.entries(filterMapping).forEach(([key, apiParam]) => {
+      if (activeFilters[key]) {
+        url += `&${apiParam}=true`;
+      }
+    });
+
+    url += `&apiKey=`;
+
+    const data = await fetchWithFallback((key) => url + key);
 
     const r = data.results[Math.floor(Math.random() * data.results.length)];
     if (!r) {
       document.getElementById('loading').classList.add('hidden');
+      alert('Nu s-au găsit rețete cu aceste criterii. Încearcă alte preferințe.');
       return;
     }
 
@@ -252,7 +273,75 @@ async function randomRecipe() {
   }
 }
 
-//-------//
+// -------FILTERS------- //
+function toggleFilters() {
+  const container = document.getElementById('filters-container');
+  container.classList.toggle('hidden');
+  const btn = document.querySelector('.toggle-filters');
+  btn.style.transform = container.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+}
+
+function updateFilters() {
+  activeFilters = {};
+  Object.keys(filterMapping).forEach(filterId => {
+    const checkbox = document.getElementById(filterId);
+    if (checkbox && checkbox.checked) {
+      activeFilters[filterId] = true;
+    }
+  });
+  localStorage.setItem('active_filters', JSON.stringify(activeFilters));
+  displayActiveFilters();
+}
+
+function loadFiltersFromStorage() {
+  const saved = localStorage.getItem('active_filters');
+  if (saved) {
+    activeFilters = JSON.parse(saved);
+    Object.entries(activeFilters).forEach(([filterId, value]) => {
+      const checkbox = document.getElementById(filterId);
+      if (checkbox) checkbox.checked = value;
+    });
+    displayActiveFilters();
+  }
+}
+
+function displayActiveFilters() {
+  const container = document.getElementById('active-filters');
+  const activeList = Object.keys(activeFilters).filter(key => activeFilters[key]);
+  
+  if (activeList.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const filterLabels = {
+    'vegan': '🌱 Vegan',
+    'vegetarian': '🥬 Vegetarian',
+    'gluten-free': '🌾 Fără Gluten',
+    'dairy-free': '🥛 Fără Lactate',
+    'paleo': '🍖 Paleo',
+    'keto': '⚡ Keto'
+  };
+
+  container.innerHTML = `<div class="filters-display">
+    ${activeList.map(key => `
+      <span class="filter-tag">
+        ${filterLabels[key]}
+        <button onclick="removeFilter('${key}')" class="remove-filter">✕</button>
+      </span>
+    `).join('')}
+  </div>`;
+}
+
+function removeFilter(filterId) {
+  const checkbox = document.getElementById(filterId);
+  if (checkbox) {
+    checkbox.checked = false;
+    updateFilters();
+  }
+}
+
+// -------FAVORITES------- //
 function showFavorites() {
   const favorites = JSON.parse(localStorage.getItem('favorite_recipes') || '[]');
   const modal = document.getElementById('favorites-modal');

@@ -35,6 +35,44 @@
       </button>
     </div>
     <div id="dropdown"></div>
+    
+    <div class="filters-section">
+      <div class="filters-header">
+        <span class="filters-title">Preferințe dietetice</span>
+        <button class="toggle-filters" onclick="toggleFilters()">▼</button>
+      </div>
+      <div id="filters-container" class="filters-container hidden">
+        <div class="filter-group">
+          <label class="filter-checkbox">
+            <input type="checkbox" id="vegan" onchange="updateFilters()">
+            <span class="checkbox-label">🌱 Vegan</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" id="vegetarian" onchange="updateFilters()">
+            <span class="checkbox-label">🥬 Vegetarian</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" id="gluten-free" onchange="updateFilters()">
+            <span class="checkbox-label">🌾 Fără Gluten</span>
+          </label>
+        </div>
+        <div class="filter-group">
+          <label class="filter-checkbox">
+            <input type="checkbox" id="dairy-free" onchange="updateFilters()">
+            <span class="checkbox-label">🥛 Fără Lactate</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" id="paleo" onchange="updateFilters()">
+            <span class="checkbox-label">🍖 Paleo</span>
+          </label>
+          <label class="filter-checkbox">
+            <input type="checkbox" id="keto" onchange="updateFilters()">
+            <span class="checkbox-label">⚡ Keto</span>
+          </label>
+        </div>
+      </div>
+      <div id="active-filters" class="active-filters"></div>
+    </div>
   </div>
 </div>
 

@@ -5,6 +5,16 @@ const API_KEYS = [
 ];
 
 let currentKeyIndex = 0;
+let activeFilters = {};
+
+const filterMapping = {
+  'vegan': 'vegan',
+  'vegetarian': 'vegetarian',
+  'gluten-free': 'glutenFree',
+  'dairy-free': 'dairyFree',
+  'paleo': 'paleo',
+  'keto': 'ketogenic'
+};
 
 async function fetchWithFallback(urlTemplate) {
   for (let i = currentKeyIndex; i < API_KEYS.length; i++) {
@@ -39,6 +49,7 @@ window.onload = () => {
       localStorage.removeItem('rezultat');
     }
   }
+  loadFiltersFromStorage();
 };
 
 function showLoading() {
@@ -70,7 +81,7 @@ function updateFavoriteButton(recipeId) {
   if (btn) {
     const isFav = isFavorited(recipeId);
     btn.classList.toggle('favorited', isFav);
-    btn.innerHTML = `<img src="images/${isFav ? 'heart' : 'no-heart'}.png" alt="favorite" width="16" height="16"> ${isFav ? 'Salvat' : 'Salvează'}`;
+    btn.innerHTML = isFav ? '♥ Salvat' : '♡ Salvează';
   }
 }
 
@@ -85,13 +96,8 @@ function renderRecipe(r) {
   document.getElementById('recipe-card').innerHTML = `
     <div class="recipe-header">
       <img src="${r.image || ''}" alt="${r.title || ''}">
-      ${r.spoonacularScore != null ? `
-      <div class="score-badge">
-        <img src="images/star.png" alt="score" width="14" height="14">
-        <span>${Math.round(r.spoonacularScore)}<span style="opacity:0.5;font-weight:300">/100</span></span>
-      </div>` : ''}
       <button id="favorite-btn" class="favorite-btn ${isFav ? 'favorited' : ''}" onclick="toggleFavorite(${JSON.stringify(r).replace(/"/g, '&quot;')})">
-        <img src="images/${isFav ? 'heart' : 'no-heart'}.png" alt="favorite" width="16" height="16"> ${isFav ? 'Salvat' : 'Salveaza'}
+        ${isFav ? '♥ Salvat' : '♡ Salvează'}
       </button>
     </div>
     <div class="recipe-body">
@@ -106,22 +112,22 @@ function renderRecipe(r) {
       </div>
       <div class="recipe-nutrients">
         <div class="nutrient-chip">
-          <img src="images/calories.png" alt="calorii" class="nutrient-icon">
+          <span class="n-icon">🔥</span>
           <span class="n-value">${getNutrient('Calories')}</span>
           <span class="n-label">Calorii</span>
         </div>
         <div class="nutrient-chip">
-          <img src="images/protein.png" alt="proteine" class="nutrient-icon">
+          <span class="n-icon">🥩</span>
           <span class="n-value">${getNutrient('Protein')}</span>
           <span class="n-label">Proteine</span>
         </div>
         <div class="nutrient-chip">
-          <img src="images/carbohydrates.png" alt="carbohidrați" class="nutrient-icon">
+          <span class="n-icon">🍞</span>
           <span class="n-value">${getNutrient('Carbohydrates')}</span>
           <span class="n-label">Carbohidrați</span>
         </div>
         <div class="nutrient-chip">
-          <img src="images/grease.png" alt="grăsimi" class="nutrient-icon">
+          <span class="n-icon">🧈</span>
           <span class="n-value">${getNutrient('Fat')}</span>
           <span class="n-label">Grăsimi</span>
         </div>
@@ -144,13 +150,23 @@ async function search() {
   showLoading();
 
   try {
-    const data = await fetchWithFallback(
-      (key) => `https://api.spoonacular.com/recipes/complexSearch?query=${q}&number=10&addRecipeNutrition=true&addRecipeInstructions=true&apiKey=${key}`
-    );
+    let url = `https://api.spoonacular.com/recipes/complexSearch?query=${q}&number=10&addRecipeNutrition=true&addRecipeInstructions=true`;
+    
+    // Add dietary filters to URL
+    Object.entries(filterMapping).forEach(([key, apiParam]) => {
+      if (activeFilters[key]) {
+        url += `&${apiParam}=true`;
+      }
+    });
+
+    url += `&apiKey=`;
+
+    const data = await fetchWithFallback((key) => url + key);
 
     const r = data.results[Math.floor(Math.random() * data.results.length)];
     if (!r) {
       document.getElementById('loading').classList.add('hidden');
+      alert('Nu s-au găsit rețete cu aceste criterii. Încearcă alte preferințe.');
       return;
     }
 
@@ -252,14 +268,81 @@ async function randomRecipe() {
   }
 }
 
-//-------//
+// -------FILTERS------- //
+function toggleFilters() {
+  const container = document.getElementById('filters-container');
+  container.classList.toggle('hidden');
+  const btn = document.querySelector('.toggle-filters');
+}
+
+function updateFilters() {
+  activeFilters = {};
+  Object.keys(filterMapping).forEach(filterId => {
+    const checkbox = document.getElementById(filterId);
+    if (checkbox && checkbox.checked) {
+      activeFilters[filterId] = true;
+    }
+  });
+  localStorage.setItem('active_filters', JSON.stringify(activeFilters));
+  displayActiveFilters();
+}
+
+function loadFiltersFromStorage() {
+  const saved = localStorage.getItem('active_filters');
+  if (saved) {
+    activeFilters = JSON.parse(saved);
+    Object.entries(activeFilters).forEach(([filterId, value]) => {
+      const checkbox = document.getElementById(filterId);
+      if (checkbox) checkbox.checked = value;
+    });
+    displayActiveFilters();
+  }
+}
+
+function displayActiveFilters() {
+  const container = document.getElementById('active-filters');
+  const activeList = Object.keys(activeFilters).filter(key => activeFilters[key]);
+  
+  if (activeList.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const filterLabels = {
+    'vegan': '🌱 Vegan',
+    'vegetarian': '🥬 Vegetarian',
+    'gluten-free': '🌾 Fără Gluten',
+    'dairy-free': '🥛 Fără Lactate',
+    'paleo': '🍖 Paleo',
+    'keto': '⚡ Keto'
+  };
+
+  container.innerHTML = `<div class="filters-display">
+    ${activeList.map(key => `
+      <span class="filter-tag">
+        ${filterLabels[key]}
+        <button onclick="removeFilter('${key}')" class="remove-filter">✕</button>
+      </span>
+    `).join('')}
+  </div>`;
+}
+
+function removeFilter(filterId) {
+  const checkbox = document.getElementById(filterId);
+  if (checkbox) {
+    checkbox.checked = false;
+    updateFilters();
+  }
+}
+
+// -------FAVORITES------- //
 function showFavorites() {
   const favorites = JSON.parse(localStorage.getItem('favorite_recipes') || '[]');
   const modal = document.getElementById('favorites-modal');
   const list = document.getElementById('favorites-list');
 
   if (favorites.length === 0) {
-    list.innerHTML = '<p class="no-favorites">Nu ai salvat nicio rețetă.</p>';
+    list.innerHTML = '<p class="no-favorites">Nu ai salvat nicio rețetă încă.</p>';
   } else {
     list.innerHTML = favorites.map(recipe => `
       <div class="favorite-item">

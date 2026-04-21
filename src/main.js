@@ -70,7 +70,7 @@ function updateFavoriteButton(recipeId) {
   if (btn) {
     const isFav = isFavorited(recipeId);
     btn.classList.toggle('favorited', isFav);
-    btn.innerHTML = `<img src="images/${isFav ? 'heart' : 'no-heart'}.png" alt="favorite" width="16" height="16"> ${isFav ? 'Salvat' : 'Salvează'}`;
+    btn.innerHTML = `<img src="images/${isFav ? 'heart' : 'no-heart'}.png" alt="favorite" width="16" height="16">`;
   }
 }
 
@@ -91,7 +91,7 @@ function renderRecipe(r) {
         <span>${Math.round(r.spoonacularScore)}<span style="opacity:0.5;font-weight:300">/100</span></span>
       </div>` : ''}
       <button id="favorite-btn" class="favorite-btn ${isFav ? 'favorited' : ''}" onclick="toggleFavorite(${JSON.stringify(r).replace(/"/g, '&quot;')})">
-        <img src="images/${isFav ? 'heart' : 'no-heart'}.png" alt="favorite" width="16" height="16"> ${isFav ? 'Salvat' : 'Salveaza'}
+        <img src="images/${isFav ? 'heart' : 'no-heart'}.png" width="16" height="16">
       </button>
     </div>
     <div class="recipe-body">

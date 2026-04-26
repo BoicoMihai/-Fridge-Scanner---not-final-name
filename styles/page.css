@@ -96,6 +96,7 @@ nav {
   box-shadow: 0 4px 18px rgba(107, 58, 42, 0.28);
 }
 
+/* ─── HERO ─── */
 .hero {
   display: flex;
   align-items: flex-start;
@@ -106,12 +107,20 @@ nav {
   margin: 0 auto;
 }
 
+.search-column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
 .search-card {
   background: var(--cream-dark);
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 2rem 2rem 1.75rem;
-  width: 400px;
+  width: 550px;
   flex-shrink: 0;
   box-shadow: var(--shadow-soft);
 }
@@ -446,6 +455,7 @@ nav {
   opacity: 0.7;
 }
 
+/* ─── RESULTS ─── */
 .results-section {
   max-width: 600px;
   margin: 2.5rem auto 5rem;
@@ -823,3 +833,207 @@ nav {
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   font-family: 'DM Sans', sans-serif;
 }
+
+
+.open-aside-wrapper {
+  margin-top: 10px;
+  margin-bottom: 2px;
+}
+
+.btn-open-aside {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-open-aside:hover {
+  background: var(--cream-mid);
+  border-color: var(--brown-light);
+  color: var(--brown);
+}
+
+.btn-open-aside.active {
+  background: var(--cream-mid);
+  border-color: var(--brown-light);
+  color: var(--brown);
+}
+
+.btn-open-aside-icon {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  font-weight: 300;
+  margin-top: -1px;
+}
+
+.btn-open-aside.active .btn-open-aside-icon {
+  transform: rotate(45deg);
+}
+
+/* Aside panel — poziționat absolut, nu mișcă nimic */
+.ingredients-aside {
+  position: absolute;
+  right: calc(100% + 50px);
+  top: 0;
+  width: 400px;
+  z-index: 200;
+  animation: slideInLeft 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.ingredients-aside.hidden {
+  display: none !important;
+}
+
+.aside-card {
+  background: var(--cream-dark);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.5rem 1.5rem 1.25rem;
+  width: 100%;
+  box-shadow: var(--shadow-card);
+}
+
+.aside-header {
+  margin-bottom: 1rem;
+}
+
+.aside-title {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--brown-dark);
+  letter-spacing: -0.01em;
+}
+
+.aside-subtitle {
+  display: block;
+  font-size: 0.73rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  font-style: italic;
+}
+
+.aside-section {
+  margin-bottom: 0.85rem;
+}
+
+.aside-section-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 8px;
+}
+
+.aside-section-icon {
+  font-size: 0.85rem;
+}
+
+.aside-pills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.aside-pill {
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  padding: 5px 11px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.15s;
+  white-space: nowrap;
+}
+
+.aside-pill:hover {
+  background: var(--cream-mid);
+  border-color: var(--brown-light);
+  color: var(--brown);
+  transform: translateY(-1px);
+}
+
+.aside-pill.selected {
+  background: var(--brown);
+  border-color: var(--brown);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(107, 58, 42, 0.22);
+}
+
+.see-more-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  padding-top: 10px;
+  margin-top: 4px;
+  transition: color 0.2s;
+}
+
+.see-more-btn:hover {
+  color: var(--brown);
+}
+
+.see-more-arrow {
+  font-size: 0.6rem;
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.see-more-arrow.open {
+  transform: rotate(180deg);
+}
+
+.aside-extra {
+  overflow: hidden;
+}
+
+.aside-extra.hidden {
+  display: none !important;
+}
+
+.ingredients-aside.expanded .aside-card {
+  max-height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.ingredients-aside.expanded .aside-card::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ingredients-aside.expanded .aside-card::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+

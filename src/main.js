@@ -4,6 +4,7 @@ const API_KEYS = [
   'a334225021db4ee7a438380be83eb510',
   '87ac6e7ac548478185dc66d45ec708de',
   '6a1ba82c0a0a4087ab4d9ea39589e899',
+  '3434c85cdcb846c29edb24e4b0485378',
 ];
 
 let currentKeyIndex = 0;
@@ -251,8 +252,13 @@ async function search() {
     const dietValues = Object.keys(activeFilters)
       .filter(key => activeFilters[key] && dietMapping[key])
       .map(key => dietMapping[key]);
+      const ingredientsList = selectedIngredients.join(',');
 
     let url = `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(q)}&number=10`;
+
+    if (ingredientsList) {
+  url += `&includeIngredients=${encodeURIComponent(ingredientsList)}`;
+}
 
     if (dietValues.length > 0) {
       url += `&diet=${dietValues[0]}`;
@@ -567,4 +573,46 @@ function toggleAside() {
     btn.childNodes[0].textContent = 'See less ';
     aside.classList.add('expanded');
   }
+}
+
+let selectedIngredients = [];
+
+function selectIngredient(name, pillEl) {
+  const index = selectedIngredients.indexOf(name);
+  
+  if (index > -1) {
+    selectedIngredients.splice(index, 1);
+    pillEl.classList.remove('selected');
+  } else {
+    selectedIngredients.push(name);
+    pillEl.classList.add('selected');
+  }
+  
+  renderIngredientTags();
+}
+
+function renderIngredientTags() {
+  const container = document.getElementById('ingredient-tags');
+  
+  if (selectedIngredients.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+
+  container.innerHTML = selectedIngredients.map(name => `
+    <span class="ingredient-tag">
+      ${name}
+      <button onclick="removeIngredientTag('${name}')">✕</button>
+    </span>
+  `).join('');
+}
+
+function removeIngredientTag(name) {
+  selectedIngredients = selectedIngredients.filter(i => i !== name);
+  document.querySelectorAll('.aside-pill').forEach(pill => {
+    if (pill.textContent.trim().toLowerCase() === name.toLowerCase()) {
+      pill.classList.remove('selected');
+    }
+  });
+  renderIngredientTags();
 }

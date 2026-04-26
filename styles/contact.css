@@ -4,21 +4,21 @@
     box-sizing: border-box;
 }
 
-:root { 
-  --cream: #f9f6e3;
-  --dusty-rose: #9F5D5D;
-  --dark-brown: #5c4033;
-  --text-dark: #3d3d3d;
-  --grey: #D9D9D9;
-  --nav-hover: #919191;
+:root {
+    --cream: #f9f6e3;
+    --dusty-rose: #9F5D5D;
+    --dark-brown: #5c4033;
+    --text-dark: #3d3d3d;
+    --grey: #D9D9D9;
+    --nav-hover: #919191;
 }
 
 body {
-  font-family: "Afacad", sans-serif;
-  font-weight: 600;
-  background-color: var(--cream);
-  color: var(--text-dark);
-  font-size: 16px;
+    font-family: "Afacad", sans-serif;
+    font-weight: 600;
+    background-color: var(--cream);
+    color: var(--text-dark);
+    font-size: 16px;
 }
 
 header {
@@ -79,6 +79,7 @@ nav a:hover {
 .contact-hero-content {
     text-align: center;
     max-width: 700px;
+    padding: 0 2rem;
 }
 
 .contact-hero h1 {
@@ -316,7 +317,7 @@ nav a:hover {
     margin: 0 auto;
 }
 
-.footer h1 {
+.footer > h1 {
     padding: 20px;
     font-size: 3.5rem;
     color: var(--dusty-rose);
@@ -341,10 +342,14 @@ nav a:hover {
     padding-left: 100px;
 }
 
+.footer-content h1 {
+    color: var(--dusty-rose);
+    font-family: "Alkatra", system-ui;
+    font-weight: normal;
+}
+
 .footer-content h2 {
     color: var(--dusty-rose);
-    display: flex;
-    flex-direction: row;
 }
 
 .text-content {
@@ -412,4 +417,311 @@ nav a:hover {
     flex-direction: column;
     gap: 10px;
     margin-top: 20px;
+}
+
+@media (max-width: 1024px) {
+    nav {
+        padding: 30px 24px;
+        gap: 1.6rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    nav a {
+        font-size: 17px;
+    }
+
+    .contact-hero {
+        min-height: 380px;
+        padding: 0 2rem;
+    }
+
+    .contact-hero h1 {
+        font-size: 2.8rem;
+    }
+
+    .contact-hero p {
+        font-size: 1.05rem;
+    }
+
+    .contact-content {
+        padding: 60px 2.5rem;
+    }
+
+    .contact-section.alternate {
+        padding: 40px 40px;
+    }
+
+    .contact-section h2 {
+        font-size: 2rem;
+    }
+
+    .contact-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .contact-cta {
+        padding: 60px 2.5rem;
+    }
+
+    .contact-cta h2 {
+        font-size: 2rem;
+    }
+
+    .footer > h1 {
+        font-size: 2.6rem;
+        text-align: center;
+    }
+
+    .footer-image {
+        height: 240px;
+        width: 100%;
+        object-fit: contain;
+    }
+
+    .footer-content {
+        padding-left: 40px;
+        padding-right: 40px;
+        width: 100%;
+    }
+
+    .text-content {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+
+    .email-selection {
+        margin-left: 0;
+        margin-top: 24px;
+        width: 100%;
+    }
+
+    .input-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .input-bar input {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .socials {
+        padding-left: 0;
+        padding-top: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    nav {
+        padding: 20px 16px;
+        gap: 1rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        scrollbar-width: none;
+    }
+
+    nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    nav a {
+        font-size: 15px;
+        white-space: nowrap;
+    }
+
+    .contact-hero {
+        min-height: 280px;
+        padding: 40px 1.2rem;
+    }
+
+    .contact-hero h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .contact-hero p {
+        font-size: 0.95rem;
+    }
+
+    .contact-content {
+        padding: 40px 1.2rem;
+    }
+
+    .contact-section {
+        margin-bottom: 48px;
+    }
+
+    .contact-section.alternate {
+        padding: 28px 20px;
+    }
+
+    .contact-section h2 {
+        font-size: 1.65rem;
+    }
+
+    .contact-section-content p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .submit-button {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.7rem 1.5rem;
+    }
+
+    .contact-cards {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .contact-card {
+        padding: 20px;
+    }
+
+    .contact-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .social-links {
+        gap: 10px;
+    }
+
+    .social-link {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+        flex: 1 1 calc(50% - 5px);
+        min-width: 130px;
+    }
+
+    .contact-cta {
+        padding: 48px 1.2rem;
+    }
+
+    .contact-cta h2 {
+        font-size: 1.65rem;
+    }
+
+    .contact-cta p {
+        font-size: 0.95rem;
+    }
+
+    .cta-button {
+        font-size: 1rem;
+        padding: 0.65rem 1.6rem;
+    }
+
+    .footer > h1 {
+        font-size: 2rem;
+        padding: 14px;
+        text-align: center;
+    }
+
+    .footer-image {
+        height: 160px;
+        width: 100%;
+        object-fit: contain;
+    }
+
+    .footer-content {
+        padding: 0 20px;
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .footer-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .footer-content > p {
+        font-size: 0.9rem;
+        margin-bottom: 16px;
+    }
+
+    .text-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        width: 100%;
+        align-items: start;
+    }
+
+    .footer-col-left {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .Site-map,
+    .Legal {
+        margin-top: 0;
+        gap: 6px;
+        margin-bottom: 16px;
+    }
+
+    .Site-map h2,
+    .Legal h2 {
+        font-size: 0.95rem;
+        margin-bottom: 4px;
+    }
+
+    .Site-map p,
+    .Legal p {
+        font-size: 0.88rem;
+    }
+
+    .email-selection {
+        margin-left: 0;
+        margin-top: 0;
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .email-selection h1 {
+        font-size: 0.95rem;
+        margin-bottom: 12px;
+        font-family: "Alkatra", system-ui;
+        color: var(--dusty-rose);
+        font-weight: normal;
+    }
+
+    .input-bar {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .input-bar input {
+        width: 100%;
+        height: 40px;
+        font-size: 12px;
+        padding-left: 12px;
+    }
+
+    .input-bar button {
+        width: 100%;
+        height: 40px;
+        font-size: 13px;
+    }
+
+    .socials {
+        padding-left: 0;
+        padding-top: 16px;
+        padding-bottom: 0;
+        gap: 14px;
+    }
 }

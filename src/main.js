@@ -1,11 +1,15 @@
 const API_KEYS = [
   'b5c5cbce124744faaff1a8f13541ae45',
   '5c8a4ac9551a41588d024990779707ee',
-  '09a712dad1d84012ad8e44508ea411b5',
+  'a334225021db4ee7a438380be83eb510',
+  '87ac6e7ac548478185dc66d45ec708de',
+  '6a1ba82c0a0a4087ab4d9ea39589e899',
 ];
 
 let currentKeyIndex = 0;
 let activeFilters = {};
+let timeMin = 5;
+let timeMax = 120;
 
 const dietMapping = {
   'vegan': 'vegan',
@@ -39,7 +43,7 @@ async function fetchWithFallback(urlTemplate) {
     }
   }
 
-  throw new Error('Toate cheile API sunt epuizate!');
+  throw new Error('Toate cheile API sunt epuizate');
 }
 
 window.onload = () => {
@@ -53,7 +57,92 @@ window.onload = () => {
     }
   }
   loadFiltersFromStorage();
+  initTimeSlider();
 };
+
+function initTimeSlider() {
+  const container = document.getElementById('slider-container');
+  const fill      = document.getElementById('slider-fill');
+  const thumbMin  = document.getElementById('thumb-min');
+  const thumbMax  = document.getElementById('thumb-max');
+  const display   = document.getElementById('time-display');
+
+  if (!container || !fill || !thumbMin || !thumbMax || !display) return;
+
+  const MIN = 5, MAX = 120, GAP = 10;
+  timeMin = MIN;
+  timeMax = MAX;
+
+  function pct(v) {
+    return ((v - MIN) / (MAX - MIN)) * 100;
+  }
+
+  function valFromPct(p) {
+    const raw = MIN + (p / 100) * (MAX - MIN);
+    return Math.round(raw / 5) * 5;
+  }
+
+  function clamp(v, lo, hi) {
+    return Math.max(lo, Math.min(hi, v));
+  }
+
+  function updateUI() {
+    const lo = pct(timeMin);
+    const hi = pct(timeMax);
+    thumbMin.style.left = lo + '%';
+    thumbMax.style.left = hi + '%';
+    fill.style.left  = lo + '%';
+    fill.style.width = (hi - lo) + '%';
+
+    if (timeMin === MIN && timeMax === MAX) {
+      display.textContent = 'orice durată';
+    } else if (timeMax === MAX) {
+      display.textContent = `${timeMin}+ min`;
+    } else {
+      display.textContent = `${timeMin} – ${timeMax} min`;
+    }
+  }
+
+  function startDrag(e, isMin) {
+    e.preventDefault();
+    const thumb = isMin ? thumbMin : thumbMax;
+    thumb.classList.add('dragging');
+
+    function onMove(ev) {
+      const clientX = ev.touches ? ev.touches[0].clientX : ev.clientX;
+      const rect = container.getBoundingClientRect();
+      let p = clamp(((clientX - rect.left) / rect.width) * 100, 0, 100);
+      let v = valFromPct(p);
+
+      if (isMin) {
+        timeMin = clamp(v, MIN, timeMax - GAP);
+      } else {
+        timeMax = clamp(v, timeMin + GAP, MAX);
+      }
+      updateUI();
+    }
+
+    function onUp() {
+      thumb.classList.remove('dragging');
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onUp);
+    }
+
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+    document.addEventListener('touchmove', onMove, { passive: false });
+    document.addEventListener('touchend', onUp);
+  }
+
+  thumbMin.addEventListener('mousedown',  (e) => startDrag(e, true));
+  thumbMin.addEventListener('touchstart', (e) => startDrag(e, true),  { passive: false });
+  thumbMax.addEventListener('mousedown',  (e) => startDrag(e, false));
+  thumbMax.addEventListener('touchstart', (e) => startDrag(e, false), { passive: false });
+
+  updateUI();
+}
 
 function showLoading() {
   document.getElementById('loading').classList.add('visible');
@@ -163,7 +252,7 @@ async function search() {
       .filter(key => activeFilters[key] && dietMapping[key])
       .map(key => dietMapping[key]);
 
-    let url = `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(q)}&number=10&addRecipeNutrition=true&addRecipeInstructions=true`;
+    let url = `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(q)}&number=10`;
 
     if (dietValues.length > 0) {
       url += `&diet=${dietValues[0]}`;
@@ -186,13 +275,25 @@ async function search() {
       return;
     }
 
-    const r = results[Math.floor(Math.random() * results.length)];
+    const chosen = results[Math.floor(Math.random() * results.length)];
+
+    const full = await fetchWithFallback(
+      (key) => `https://api.spoonacular.com/recipes/${chosen.id}/information?includeNutrition=true&apiKey=${key}`
+    );
+
+    if (timeMin !== 5 || timeMax !== 120) {
+      if (!full.readyInMinutes || full.readyInMinutes < timeMin || full.readyInMinutes > timeMax) {
+        document.getElementById('loading').classList.add('hidden');
+        alert('Nu s-au găsit rețete în intervalul de timp selectat');
+        return;
+      }
+    }
 
     const history = JSON.parse(localStorage.getItem('istoric') || '[]');
     if (!history.includes(q)) history.unshift(q);
     localStorage.setItem('istoric', JSON.stringify(history.slice(0, 10)));
 
-    renderRecipe(r);
+    renderRecipe(full);
   } catch (e) {
     alert('Toate cheile API sunt epuizate. Încearcă mai târziu.');
     document.getElementById('loading').classList.add('hidden');
@@ -269,18 +370,30 @@ async function randomRecipe() {
   showLoading();
 
   try {
-    const url = `https://api.spoonacular.com/recipes/random?number=1&includeNutrition=true&apiKey=`;
+    const url = `https://api.spoonacular.com/recipes/random?number=5&apiKey=`;
     const data = await fetchWithFallback((key) => url + key);
 
-    const r = data.recipes[0];
-    if (!r) {
+    const filtered = (data.recipes || []).filter(recipe => {
+      const t = recipe.readyInMinutes;
+      if (!t) return false;
+      return t >= timeMin && t <= timeMax;
+    });
+
+    if (filtered.length === 0) {
       document.getElementById('loading').classList.add('hidden');
+      alert('Nu s-au găsit rețete în intervalul de timp selectat');
       return;
     }
 
-    renderRecipe(r);
+    const chosen = filtered[Math.floor(Math.random() * filtered.length)];
+
+    const full = await fetchWithFallback(
+      (key) => `https://api.spoonacular.com/recipes/${chosen.id}/information?includeNutrition=true&apiKey=${key}`
+    );
+
+    renderRecipe(full);
   } catch (e) {
-    alert('Toate cheile API sunt epuizate. Încearcă mai târziu.');
+    alert('Toate cheile API sunt epuizate');
     document.getElementById('loading').classList.add('hidden');
   }
 }
@@ -406,6 +519,7 @@ function removeFavorite(recipeId) {
   favorites = favorites.filter(r => r.id !== recipeId);
   localStorage.setItem('favorite_recipes', JSON.stringify(favorites));
   showFavorites();
+  updateFavoriteButton(recipeId);
 }
 
 document.addEventListener('click', (e) => {

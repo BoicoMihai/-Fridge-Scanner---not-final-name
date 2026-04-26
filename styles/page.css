@@ -836,6 +836,10 @@ nav {
 
 
 .open-aside-wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
   margin-top: 10px;
   margin-bottom: 2px;
 }
@@ -975,12 +979,11 @@ nav {
 }
 
 .aside-pill.selected {
-  background: var(--brown);
-  border-color: var(--brown);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(107, 58, 42, 0.22);
+  background: var(--cream-mid);
+  border-color: var(--brown-light);
+  color: var(--brown);
+  box-shadow: 0 2px 8px rgba(107, 58, 42, 0.12);
 }
-
 .see-more-btn {
   display: flex;
   align-items: center;
@@ -1037,3 +1040,37 @@ nav {
   border-radius: 4px;
 }
 
+.ingredient-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ingredient-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--cream-mid);
+  color: var(--brown);
+  border: 1.5px solid var(--brown-light);
+  border-radius: 100px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+}
+
+.ingredient-tag button {
+  background: transparent;
+  border: none;
+  color: var(--brown-light);
+  cursor: pointer;
+  font-size: 0.7rem;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.ingredient-tag button:hover {
+  color: var(--brown);
+}

@@ -117,7 +117,6 @@ nav {
   box-shadow: 0 4px 18px rgba(107, 58, 42, 0.28);
 }
 
-/* ─── HERO ─── */
 .hero {
   display: flex;
   align-items: flex-start;
@@ -476,7 +475,6 @@ nav {
   opacity: 0.7;
 }
 
-/* ─── RESULTS ─── */
 .results-section {
   max-width: 600px;
   margin: 2.5rem auto 5rem;
@@ -1093,4 +1091,475 @@ nav {
 
 .ingredient-tag button:hover {
   color: var(--brown);
+}
+
+footer {
+  background: var(--cream-dark);
+  color: var(--text-muted);
+  padding: 3.5rem 3rem 2rem;
+  margin-top: 4rem;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--brown-light), transparent);
+  opacity: 0.5;
+}
+
+footer::after {
+  content: '🍳';
+  position: absolute;
+  right: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 7rem;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.footer-brand .footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--brown-dark);
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.footer-brand .footer-logo span {
+  font-size: 1.3rem;
+}
+
+.footer-brand p {
+  font-size: 0.83rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  max-width: 260px;
+}
+
+.footer-col h4 {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--brown);
+  margin-bottom: 1rem;
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.footer-col ul li a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 400;
+  transition: color 0.2s;
+}
+
+.footer-col ul li a:hover {
+  color: var(--brown);
+}
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.footer-bottom p {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  opacity: 0.65;
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.footer-bottom-links a {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  opacity: 0.65;
+  text-decoration: none;
+  transition: color 0.2s, opacity 0.2s;
+}
+
+.footer-bottom-links a:hover {
+  color: var(--brown);
+  opacity: 1;
+}
+
+.nav-mobile-strip {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  nav {
+    padding: 0.85rem 1.25rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .nav-logo {
+    font-size: 1rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+  }
+
+  .nav-links a {
+    font-size: 0.75rem;
+  }
+
+  .btn-discover {
+    padding: 0.4rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .hero {
+    flex-direction: column;
+    padding: 1.5rem 1rem 1rem;
+    gap: 1rem;
+  }
+
+  .search-column {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .search-card {
+    width: 100%;
+    padding: 1.4rem 1.25rem 1.25rem;
+    border-radius: 16px;
+  }
+
+  .search-card label {
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+  }
+
+  #q,
+  #ghost {
+    font-size: 0.82rem;
+    height: 40px;
+    padding: 0 11px;
+  }
+
+  #btn-search {
+    padding: 11px;
+  }
+
+  #btn-search img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .btn-random {
+    padding: 9px;
+  }
+
+  #random {
+    width: 18px;
+    height: 18px;
+  }
+
+  .pills-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+
+  .filter-pill {
+    padding: 9px 11px;
+    font-size: 0.79rem;
+    border-radius: 11px;
+  }
+
+  .time-slider-section {
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+
+  #dropdown {
+    border-radius: 10px;
+  }
+
+  .ingredients-aside {
+    position: static;
+    width: 100%;
+    animation: slideDown 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    margin-top: 0.75rem;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .aside-card {
+    border-radius: 14px;
+    padding: 1.1rem 1.1rem 1rem;
+  }
+
+  .aside-title {
+    font-size: 0.92rem;
+  }
+
+  .aside-pills-grid {
+    gap: 5px;
+  }
+
+  .aside-pill {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+
+  .results-section {
+    padding: 0 1rem;
+    margin: 1.5rem auto 4rem;
+  }
+
+  #recipe-card {
+    border-radius: 18px;
+  }
+
+  .recipe-header > img {
+    height: 210px;
+  }
+
+  .recipe-body {
+    padding: 1.25rem 1.25rem 1.5rem;
+  }
+
+  .recipe-body h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .recipe-meta {
+    font-size: 0.78rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .recipe-nutrients {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-bottom: 1.25rem;
+  }
+
+  .nutrient-chip {
+    padding: 9px 4px 7px;
+    border-radius: 11px;
+  }
+
+  .nutrient-chip .nutrient-icon {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 4px;
+  }
+
+  .nutrient-chip .n-value {
+    font-size: 0.78rem;
+  }
+
+  .nutrient-chip .n-label {
+    font-size: 0.6rem;
+  }
+
+  .recipe-link {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 18px;
+    font-size: 0.85rem;
+  }
+
+  .score-badge {
+    font-size: 0.75rem;
+    padding: 5px 10px;
+  }
+
+  .favorite-btn {
+    padding: 6px;
+  }
+
+  .favorites-content {
+    width: 95%;
+    max-height: 88vh;
+    border-radius: 18px;
+  }
+
+  .favorites-header {
+    padding: 1.1rem 1.25rem;
+  }
+
+  .favorites-header h2 {
+    font-size: 1.1rem;
+  }
+
+  #favorites-list {
+    padding: 0.75rem;
+  }
+
+  .favorite-item {
+    gap: 10px;
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .favorite-item-image {
+    width: 72px;
+    height: 72px;
+  }
+
+  .favorite-item-info h3 {
+    font-size: 0.83rem;
+  }
+
+  .favorite-meta {
+    font-size: 0.72rem;
+  }
+
+  .favorite-item-actions {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .view-recipe-btn,
+  .remove-favorite-btn {
+    font-size: 0.72rem;
+    padding: 5px 10px;
+  }
+
+  footer {
+    padding: 2.5rem 1.25rem 1.75rem;
+    margin-top: 2.5rem;
+  }
+
+  footer::after {
+    right: 1.25rem;
+    font-size: 5rem;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .footer-brand p {
+    max-width: 100%;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .footer-bottom-links {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    padding: 0.75rem 1rem;
+  }
+
+  .nav-links {
+    gap: 0.75rem;
+  }
+
+  .nav-links a {
+    font-size: 0.7rem;
+  }
+
+  .btn-discover {
+    display: none;
+  }
+
+  .hero {
+    padding: 1.25rem 0.85rem 0.75rem;
+  }
+
+  .search-card {
+    padding: 1.2rem 1rem 1.1rem;
+  }
+
+  .recipe-header > img {
+    height: 175px;
+  }
+
+  .recipe-body {
+    padding: 1rem;
+  }
+
+  .recipe-body h2 {
+    font-size: 1.1rem;
+  }
+
+  .recipe-nutrients {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 7px;
+  }
+
+  .nutrient-chip {
+    padding: 10px 8px;
+  }
+
+  .nutrient-chip .nutrient-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .nutrient-chip .n-value {
+    font-size: 0.85rem;
+  }
+
+  .nutrient-chip .n-label {
+    font-size: 0.65rem;
+  }
+
+  .filter-pill {
+    font-size: 0.76rem;
+    padding: 8px 9px;
+  }
+
+  .aside-pill {
+    font-size: 0.73rem;
+    padding: 4px 9px;
+  }
+
+  .results-section {
+    padding: 0 0.85rem;
+  }
 }

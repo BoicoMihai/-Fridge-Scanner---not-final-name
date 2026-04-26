@@ -5,6 +5,7 @@ const API_KEYS = [
   '87ac6e7ac548478185dc66d45ec708de',
   '6a1ba82c0a0a4087ab4d9ea39589e899',
   '3434c85cdcb846c29edb24e4b0485378',
+  '4c570afd44694a3589f485d8fea5d363',
 ];
 
 let currentKeyIndex = 0;
@@ -96,7 +97,7 @@ function initTimeSlider() {
     fill.style.width = (hi - lo) + '%';
 
     if (timeMin === MIN && timeMax === MAX) {
-      display.textContent = 'orice durată';
+      display.textContent = 'any duration';
     } else if (timeMax === MAX) {
       display.textContent = `${timeMin}+ min`;
     } else {
@@ -207,32 +208,32 @@ function renderRecipe(r) {
         </svg>
         <span>${r.readyInMinutes} min</span>
         <span class="dot">·</span>
-        <span>${r.servings} porții</span>
+        <span>${r.servings} servings</span>
       </div>
       <div class="recipe-nutrients">
         <div class="nutrient-chip">
           <img src="images/calories.png" alt="calorii" class="nutrient-icon">
           <span class="n-value">${getNutrientFromRecipe(r, 'Calories')}</span>
-          <span class="n-label">Calorii</span>
+          <span class="n-label">Calories</span>
         </div>
         <div class="nutrient-chip">
           <img src="images/protein.png" alt="proteine" class="nutrient-icon">
           <span class="n-value">${getNutrientFromRecipe(r, 'Protein')}</span>
-          <span class="n-label">Proteine</span>
+          <span class="n-label">Protein</span>
         </div>
         <div class="nutrient-chip">
           <img src="images/carbohydrates.png" alt="carbohidrați" class="nutrient-icon">
           <span class="n-value">${getNutrientFromRecipe(r, 'Carbohydrates')}</span>
-          <span class="n-label">Carbohidrați</span>
+          <span class="n-label">Carbohydrates</span>
         </div>
         <div class="nutrient-chip">
           <img src="images/grease.png" alt="grăsimi" class="nutrient-icon">
           <span class="n-value">${getNutrientFromRecipe(r, 'Fat')}</span>
-          <span class="n-label">Grăsimi</span>
+          <span class="n-label">Grease</span>
         </div>
       </div>
       <a href="${r.sourceUrl || '#'}" target="_blank" class="recipe-link">
-        Vezi rețeta completă
+      See the full recipe
       </a>
     </div>
   `;

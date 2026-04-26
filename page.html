@@ -12,10 +12,9 @@
 <nav>
   <span class="nav-logo">Fridge Scanner</span>
   <div class="nav-links">
-    <a href="#">Despre noi</a>
-    <a href="#">Contact</a>
-    <a href="#" onclick="showFavorites(); return false;" class="nav-favorites">Favorite</a>
-    <button class="btn-discover">Descoperă</button>
+    <a href="#">About Us</a>
+    <a href="#">Contact Us</a>
+    <a href="#" onclick="showFavorites(); return false;" class="nav-favorites">Favorites</a>
   </div>
 </nav>
 
@@ -129,7 +128,7 @@
 
       <div class="filters-section">
         <div class="filters-header" onclick="toggleFilters()">
-          <span class="filters-title">Preferințe dietetice</span>
+          <span class="filters-title">Dietary preferences</span>
           <span class="toggle-arrow" id="toggle-arrow">▼</span>
         </div>
 
@@ -145,11 +144,11 @@
             </button>
             <button class="filter-pill" data-filter="gluten-free" onclick="togglePill(this)">
               <img src="images/gluten-free.png" width="16" height="16">
-              <span>Fără Gluten</span>
+              <span>Gluten free</span>
             </button>
             <button class="filter-pill" data-filter="dairy-free" onclick="togglePill(this)">
               <img src="images/dairy-free.png" width="16" height="16">
-              <span>Fără Lactate</span>
+              <span>Free Dairy</span>
             </button>
             <button class="filter-pill" data-filter="paleo" onclick="togglePill(this)">
               <img src="images/paleo.png" width="16" height="16">
@@ -162,8 +161,8 @@
           </div>
           <div class="time-slider-section">
             <div class="time-slider-header">
-              <span class="time-slider-label">Timp de gătire</span>
-              <span class="time-slider-value" id="time-display">orice durată</span>
+              <span class="time-slider-label">Cooking time</span>
+              <span class="time-slider-value" id="time-display">any duration</span>
             </div>
             <div class="slider-track-container" id="slider-container">
               <div class="slider-track"></div>
@@ -186,13 +185,13 @@
 <div class="results-section">
   <div id="loading" class="hidden">
     <div class="spinner"></div>
-    <span>Se încarcă rețeta...</span>
+    <span>Loading recipe...</span>
   </div>
   <div id="recipe-card" class="hidden"></div>
   <div id="favorites-modal" class="favorites-modal hidden">
     <div class="favorites-content">
       <div class="favorites-header">
-        <h2>Rețete Favorite</h2>
+        <h2>Favorite Recipes</h2>
         <button class="close-favorites" onclick="closeFavorites()">✕</button>
       </div>
       <div id="favorites-list"></div>

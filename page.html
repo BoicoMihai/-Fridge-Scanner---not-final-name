@@ -28,50 +28,48 @@
         <input type="text" id="q" placeholder="Scrie un ingredient..." onfocus="showHistory()" onblur="hideHistory()" oninput="ingredientSuggest()" onkeydown="handleKey(event)">
       </div>
       <button id="btn-search" onclick="search()">
-         <img src="images/search.png" alt="search" width="18" height="18" id="search-icon">
-       </button>
+        <img src="images/search.png" alt="search" width="18" height="18" id="search-icon">
+      </button>
       <button class="btn-random" onclick="randomRecipe()">
         <img src="images/random.png" alt="random" id="random">
       </button>
     </div>
     <div id="dropdown"></div>
-    
+
     <div class="filters-section">
-      <div class="filters-header">
+      <div class="filters-header" onclick="toggleFilters()">
         <span class="filters-title">Preferințe dietetice</span>
-        <button class="toggle-filters" onclick="toggleFilters()">▼</button>
+        <span class="toggle-arrow" id="toggle-arrow">▼</span>
       </div>
+
       <div id="filters-container" class="filters-container hidden">
-        <div class="filter-group">
-          <label class="filter-checkbox">
-            <input type="checkbox" id="vegan" onchange="updateFilters()">
-            <span class="checkbox-label">🌱 Vegan</span>
-          </label>
-          <label class="filter-checkbox">
-            <input type="checkbox" id="vegetarian" onchange="updateFilters()">
-            <span class="checkbox-label">🥬 Vegetarian</span>
-          </label>
-          <label class="filter-checkbox">
-            <input type="checkbox" id="gluten-free" onchange="updateFilters()">
-            <span class="checkbox-label">🌾 Fără Gluten</span>
-          </label>
-        </div>
-        <div class="filter-group">
-          <label class="filter-checkbox">
-            <input type="checkbox" id="dairy-free" onchange="updateFilters()">
-            <span class="checkbox-label">🥛 Fără Lactate</span>
-          </label>
-          <label class="filter-checkbox">
-            <input type="checkbox" id="paleo" onchange="updateFilters()">
-            <span class="checkbox-label">🍖 Paleo</span>
-          </label>
-          <label class="filter-checkbox">
-            <input type="checkbox" id="keto" onchange="updateFilters()">
-            <span class="checkbox-label">⚡ Keto</span>
-          </label>
+        <div class="pills-grid">
+          <button class="filter-pill" data-filter="vegan" onclick="togglePill(this)">
+            <img src="images/vegan.png" width="16" height="16">
+            <span>Vegan</span>
+          </button>
+          <button class="filter-pill" data-filter="vegetarian" onclick="togglePill(this)">
+            <img src="images/vegetarian.png" width="16" height="16">
+            <span>Vegetarian</span>
+          </button>
+          <button class="filter-pill" data-filter="gluten-free" onclick="togglePill(this)">
+            <img src="images/gluten-free.png" width="16" height="16">
+            <span>Fără Gluten</span>
+          </button>
+          <button class="filter-pill" data-filter="dairy-free" onclick="togglePill(this)">
+            <img src="images/dairy-free.png" width="16" height="16">
+            <span>Fără Lactate</span>
+          </button>
+          <button class="filter-pill" data-filter="paleo" onclick="togglePill(this)">
+            <img src="images/paleo.png" width="16" height="16">
+            <span>Paleo</span>
+          </button>
+          <button class="filter-pill" data-filter="keto" onclick="togglePill(this)">
+            <img src="images/keto.png" width="16" height="16">
+            <span>Keto</span>
+          </button>
         </div>
       </div>
-      <div id="active-filters" class="active-filters"></div>
     </div>
   </div>
 </div>

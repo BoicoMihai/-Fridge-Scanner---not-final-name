@@ -20,74 +20,167 @@
 </nav>
 
 <div class="hero">
-  <div class="search-card">
-    <label>What's in your fridge?</label>
-    <div class="input-row">
-      <div class="input-wrapper">
-        <input type="text" id="ghost" disabled>
-        <input type="text" id="q" placeholder="Scrie un ingredient..." onfocus="showHistory()" onblur="hideHistory()" oninput="ingredientSuggest()" onkeydown="handleKey(event)">
-      </div>
-      <button id="btn-search" onclick="search()">
-        <img src="images/search.png" alt="search" width="18" height="18" id="search-icon">
-      </button>
-      <button class="btn-random" onclick="randomRecipe()">
-        <img src="images/random.png" alt="random" id="random">
-      </button>
+
+  <div class="search-column">
+    <aside class="ingredients-aside hidden" id="ingredients-aside">
+  <div class="aside-card" id="aside-card">
+    <div class="aside-header">
+      <span class="aside-title">Quick Ingredients</span>
+      <span class="aside-subtitle">Tap to add to your search</span>
     </div>
-    <div id="dropdown"></div>
 
-    <div class="filters-section">
-      <div class="filters-header" onclick="toggleFilters()">
-        <span class="filters-title">Preferințe dietetice</span>
-        <span class="toggle-arrow" id="toggle-arrow">▼</span>
+    <div class="aside-section">
+      <div class="aside-section-label"><span>Essentials</span></div>
+      <div class="aside-pills-grid">
+        <button class="aside-pill" onclick="selectIngredient('eggs', this)">Eggs</button>
+        <button class="aside-pill" onclick="selectIngredient('butter', this)">Butter</button>
+        <button class="aside-pill" onclick="selectIngredient('garlic', this)">Garlic</button>
+        <button class="aside-pill" onclick="selectIngredient('onion', this)">Onion</button>
+        <button class="aside-pill" onclick="selectIngredient('olive oil', this)">Olive Oil</button>
+        <button class="aside-pill" onclick="selectIngredient('milk', this)">Milk</button>
+        <button class="aside-pill" onclick="selectIngredient('flour', this)">Flour</button>
+        <button class="aside-pill" onclick="selectIngredient('tomatoes', this)">Tomatoes</button>
+      </div>
+    </div>
+
+    <div class="aside-extra hidden" id="aside-extra">
+
+      <div class="aside-section">
+        <div class="aside-section-label"><span>Vegetables</span></div>
+        <div class="aside-pills-grid">
+          <button class="aside-pill" onclick="selectIngredient('carrot', this)">Carrot</button>
+          <button class="aside-pill" onclick="selectIngredient('potato', this)">Potato</button>
+          <button class="aside-pill" onclick="selectIngredient('spinach', this)">Spinach</button>
+          <button class="aside-pill" onclick="selectIngredient('broccoli', this)">Broccoli</button>
+          <button class="aside-pill" onclick="selectIngredient('bell pepper', this)">Bell Pepper</button>
+          <button class="aside-pill" onclick="selectIngredient('zucchini', this)">Zucchini</button>
+          <button class="aside-pill" onclick="selectIngredient('cucumber', this)">Cucumber</button>
+          <button class="aside-pill" onclick="selectIngredient('celery', this)">Celery</button>
+        </div>
       </div>
 
-      <div id="filters-container" class="filters-container hidden">
-        <div class="pills-grid">
-          <button class="filter-pill" data-filter="vegan" onclick="togglePill(this)">
-            <img src="images/vegan.png" width="16" height="16">
-            <span>Vegan</span>
-          </button>
-          <button class="filter-pill" data-filter="vegetarian" onclick="togglePill(this)">
-            <img src="images/vegetarian.png" width="16" height="16">
-            <span>Vegetarian</span>
-          </button>
-          <button class="filter-pill" data-filter="gluten-free" onclick="togglePill(this)">
-            <img src="images/gluten-free.png" width="16" height="16">
-            <span>Fără Gluten</span>
-          </button>
-          <button class="filter-pill" data-filter="dairy-free" onclick="togglePill(this)">
-            <img src="images/dairy-free.png" width="16" height="16">
-            <span>Fără Lactate</span>
-          </button>
-          <button class="filter-pill" data-filter="paleo" onclick="togglePill(this)">
-            <img src="images/paleo.png" width="16" height="16">
-            <span>Paleo</span>
-          </button>
-          <button class="filter-pill" data-filter="keto" onclick="togglePill(this)">
-            <img src="images/keto.png" width="16" height="16">
-            <span>Keto</span>
-          </button>
+      <div class="aside-section">
+        <div class="aside-section-label"><span>Proteins</span></div>
+        <div class="aside-pills-grid">
+          <button class="aside-pill" onclick="selectIngredient('chicken breast', this)">Chicken</button>
+          <button class="aside-pill" onclick="selectIngredient('ground beef', this)">Ground Beef</button>
+          <button class="aside-pill" onclick="selectIngredient('salmon', this)">Salmon</button>
+          <button class="aside-pill" onclick="selectIngredient('tuna', this)">Tuna</button>
+          <button class="aside-pill" onclick="selectIngredient('lentils', this)">Lentils</button>
+          <button class="aside-pill" onclick="selectIngredient('chickpeas', this)">Chickpeas</button>
+          <button class="aside-pill" onclick="selectIngredient('tofu', this)">Tofu</button>
+          <button class="aside-pill" onclick="selectIngredient('shrimp', this)">Shrimp</button>
         </div>
-        <div class="time-slider-section">
-          <div class="time-slider-header">
-            <span class="time-slider-label">Timp de gătire</span>
-            <span class="time-slider-value" id="time-display">orice durată</span>
+      </div>
+
+      <div class="aside-section">
+        <div class="aside-section-label"><span>Dairy</span></div>
+        <div class="aside-pills-grid">
+          <button class="aside-pill" onclick="selectIngredient('cheese', this)">Cheese</button>
+          <button class="aside-pill" onclick="selectIngredient('mozzarella', this)">Mozzarella</button>
+          <button class="aside-pill" onclick="selectIngredient('parmesan', this)">Parmesan</button>
+          <button class="aside-pill" onclick="selectIngredient('yogurt', this)">Yogurt</button>
+          <button class="aside-pill" onclick="selectIngredient('cream', this)">Cream</button>
+          <button class="aside-pill" onclick="selectIngredient('sour cream', this)">Sour Cream</button>
+        </div>
+      </div>
+
+      <div class="aside-section">
+        <div class="aside-section-label"><span>Grains & Pasta</span></div>
+        <div class="aside-pills-grid">
+          <button class="aside-pill" onclick="selectIngredient('rice', this)">Rice</button>
+          <button class="aside-pill" onclick="selectIngredient('pasta', this)">Pasta</button>
+          <button class="aside-pill" onclick="selectIngredient('bread', this)">Bread</button>
+          <button class="aside-pill" onclick="selectIngredient('oats', this)">Oats</button>
+          <button class="aside-pill" onclick="selectIngredient('quinoa', this)">Quinoa</button>
+          <button class="aside-pill" onclick="selectIngredient('couscous', this)">Couscous</button>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="see-more-btn" id="see-more-btn" onclick="toggleAside()">
+      See more <span class="see-more-arrow" id="see-more-arrow">▼</span>
+    </button>
+  </div>
+</aside>
+    <div class="search-card">
+      <label>What's in your fridge?</label>
+      <div class="input-row">
+        <div class="input-wrapper">
+          <input type="text" id="ghost" disabled>
+          <input type="text" id="q" placeholder="Scrie un ingredient..." onfocus="showHistory()" onblur="hideHistory()" oninput="ingredientSuggest()" onkeydown="handleKey(event)">
+        </div>
+        <button id="btn-search" onclick="search()">
+          <img src="images/search.png" alt="search" width="18" height="18" id="search-icon">
+        </button>
+        <button class="btn-random" onclick="randomRecipe()">
+          <img src="images/random.png" alt="random" id="random">
+        </button>
+      </div>
+      <div id="dropdown"></div>
+
+      <!-- Buton + în interiorul search card, sub input -->
+      <div class="open-aside-wrapper">
+        <button class="btn-open-aside" id="btn-open-aside" onclick="toggleAsidePanel()" title="Quick ingredient picker">
+          <span class="btn-open-aside-icon" id="open-aside-icon">+</span>
+        </button>
+      </div>
+
+      <div class="filters-section">
+        <div class="filters-header" onclick="toggleFilters()">
+          <span class="filters-title">Preferințe dietetice</span>
+          <span class="toggle-arrow" id="toggle-arrow">▼</span>
+        </div>
+
+        <div id="filters-container" class="filters-container hidden">
+          <div class="pills-grid">
+            <button class="filter-pill" data-filter="vegan" onclick="togglePill(this)">
+              <img src="images/vegan.png" width="16" height="16">
+              <span>Vegan</span>
+            </button>
+            <button class="filter-pill" data-filter="vegetarian" onclick="togglePill(this)">
+              <img src="images/vegetarian.png" width="16" height="16">
+              <span>Vegetarian</span>
+            </button>
+            <button class="filter-pill" data-filter="gluten-free" onclick="togglePill(this)">
+              <img src="images/gluten-free.png" width="16" height="16">
+              <span>Fără Gluten</span>
+            </button>
+            <button class="filter-pill" data-filter="dairy-free" onclick="togglePill(this)">
+              <img src="images/dairy-free.png" width="16" height="16">
+              <span>Fără Lactate</span>
+            </button>
+            <button class="filter-pill" data-filter="paleo" onclick="togglePill(this)">
+              <img src="images/paleo.png" width="16" height="16">
+              <span>Paleo</span>
+            </button>
+            <button class="filter-pill" data-filter="keto" onclick="togglePill(this)">
+              <img src="images/keto.png" width="16" height="16">
+              <span>Keto</span>
+            </button>
           </div>
-          <div class="slider-track-container" id="slider-container">
-            <div class="slider-track"></div>
-            <div class="slider-fill" id="slider-fill"></div>
-            <div class="slider-thumb" id="thumb-min"></div>
-            <div class="slider-thumb" id="thumb-max"></div>
-          </div>
-          <div class="range-labels">
-            <span>5 min</span>
-            <span>120 min</span>
+          <div class="time-slider-section">
+            <div class="time-slider-header">
+              <span class="time-slider-label">Timp de gătire</span>
+              <span class="time-slider-value" id="time-display">orice durată</span>
+            </div>
+            <div class="slider-track-container" id="slider-container">
+              <div class="slider-track"></div>
+              <div class="slider-fill" id="slider-fill"></div>
+              <div class="slider-thumb" id="thumb-min"></div>
+              <div class="slider-thumb" id="thumb-max"></div>
+            </div>
+            <div class="range-labels">
+              <span>5 min</span>
+              <span>120 min</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </div>
 
 <div class="results-section">

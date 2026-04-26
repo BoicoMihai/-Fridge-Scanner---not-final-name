@@ -528,3 +528,43 @@ document.addEventListener('click', (e) => {
     closeFavorites();
   }
 });
+
+let asideOpen = false;
+
+function toggleAsidePanel() {
+  asideOpen = !asideOpen;
+  const aside = document.getElementById('ingredients-aside');
+  const btn = document.getElementById('btn-open-aside');
+
+  if (asideOpen) {
+    aside.classList.remove('hidden');
+    btn.classList.add('active');
+  } else {
+    aside.classList.add('hidden');
+    btn.classList.remove('active');
+  }
+}
+
+function selectIngredient(name, pillEl) {
+  pillEl.classList.toggle('selected');
+}
+
+function toggleAside() {
+  const extra  = document.getElementById('aside-extra');
+  const arrow  = document.getElementById('see-more-arrow');
+  const btn    = document.getElementById('see-more-btn');
+  const aside  = document.getElementById('ingredients-aside');
+  const isOpen = !extra.classList.contains('hidden');
+
+  if (isOpen) {
+    extra.classList.add('hidden');
+    arrow.classList.remove('open');
+    btn.childNodes[0].textContent = 'See more ';
+    aside.classList.remove('expanded');
+  } else {
+    extra.classList.remove('hidden');
+    arrow.classList.add('open');
+    btn.childNodes[0].textContent = 'See less ';
+    aside.classList.add('expanded');
+  }
+}

@@ -7,13 +7,16 @@ const API_KEYS = [
 let currentKeyIndex = 0;
 let activeFilters = {};
 
-const filterMapping = {
+const dietMapping = {
   'vegan': 'vegan',
   'vegetarian': 'vegetarian',
+  'paleo': 'paleo',
+  'keto': 'ketogenic',
+};
+
+const booleanMapping = {
   'gluten-free': 'glutenFree',
   'dairy-free': 'dairyFree',
-  'paleo': 'paleo',
-  'keto': 'ketogenic'
 };
 
 async function fetchWithFallback(urlTemplate) {
@@ -85,12 +88,13 @@ function updateFavoriteButton(recipeId) {
   }
 }
 
-function renderRecipe(r) {
-  const getNutrient = (name) => {
-    const found = r.nutrition?.nutrients?.find(n => n.name === name);
-    return found ? `${Math.round(found.amount)}${found.unit}` : 'N/A';
-  };
+function getNutrientFromRecipe(r, name) {
+  const list = r.nutrition?.nutrients || r.nutrients || [];
+  const found = list.find(n => n.name === name);
+  return found ? `${Math.round(found.amount)}${found.unit}` : 'N/A';
+}
 
+function renderRecipe(r) {
   const isFav = isFavorited(r.id);
 
   document.getElementById('recipe-card').innerHTML = `
@@ -118,22 +122,22 @@ function renderRecipe(r) {
       <div class="recipe-nutrients">
         <div class="nutrient-chip">
           <img src="images/calories.png" alt="calorii" class="nutrient-icon">
-          <span class="n-value">${getNutrient('Calories')}</span>
+          <span class="n-value">${getNutrientFromRecipe(r, 'Calories')}</span>
           <span class="n-label">Calorii</span>
         </div>
         <div class="nutrient-chip">
           <img src="images/protein.png" alt="proteine" class="nutrient-icon">
-          <span class="n-value">${getNutrient('Protein')}</span>
+          <span class="n-value">${getNutrientFromRecipe(r, 'Protein')}</span>
           <span class="n-label">Proteine</span>
         </div>
         <div class="nutrient-chip">
           <img src="images/carbohydrates.png" alt="carbohidrați" class="nutrient-icon">
-          <span class="n-value">${getNutrient('Carbohydrates')}</span>
+          <span class="n-value">${getNutrientFromRecipe(r, 'Carbohydrates')}</span>
           <span class="n-label">Carbohidrați</span>
         </div>
         <div class="nutrient-chip">
           <img src="images/grease.png" alt="grăsimi" class="nutrient-icon">
-          <span class="n-value">${getNutrient('Fat')}</span>
+          <span class="n-value">${getNutrientFromRecipe(r, 'Fat')}</span>
           <span class="n-label">Grăsimi</span>
         </div>
       </div>
@@ -155,12 +159,19 @@ async function search() {
   showLoading();
 
   try {
-    let url = `https://api.spoonacular.com/recipes/complexSearch?query=${q}&number=10&addRecipeNutrition=true&addRecipeInstructions=true`;
-    
-    // Add dietary filters to URL
-    Object.entries(filterMapping).forEach(([key, apiParam]) => {
-      if (activeFilters[key]) {
-        url += `&${apiParam}=true`;
+    const dietValues = Object.keys(activeFilters)
+      .filter(key => activeFilters[key] && dietMapping[key])
+      .map(key => dietMapping[key]);
+
+    let url = `https://api.spoonacular.com/recipes/complexSearch?query=${encodeURIComponent(q)}&number=10&addRecipeNutrition=true&addRecipeInstructions=true`;
+
+    if (dietValues.length > 0) {
+      url += `&diet=${dietValues[0]}`;
+    }
+
+    Object.keys(activeFilters).forEach(key => {
+      if (activeFilters[key] && booleanMapping[key]) {
+        url += `&${booleanMapping[key]}=true`;
       }
     });
 
@@ -168,12 +179,14 @@ async function search() {
 
     const data = await fetchWithFallback((key) => url + key);
 
-    const r = data.results[Math.floor(Math.random() * data.results.length)];
-    if (!r) {
+    const results = data.results;
+    if (!results || results.length === 0) {
       document.getElementById('loading').classList.add('hidden');
-      alert('Nu s-au găsit rețete cu aceste criterii. Încearcă alte preferințe.');
+      alert('Nu s-au găsit rețete cu aceste criterii');
       return;
     }
+
+    const r = results[Math.floor(Math.random() * results.length)];
 
     const history = JSON.parse(localStorage.getItem('istoric') || '[]');
     if (!history.includes(q)) history.unshift(q);
@@ -256,9 +269,8 @@ async function randomRecipe() {
   showLoading();
 
   try {
-    const data = await fetchWithFallback(
-      (key) => `https://api.spoonacular.com/recipes/random?number=1&includeNutrition=true&apiKey=${key}`
-    );
+    const url = `https://api.spoonacular.com/recipes/random?number=1&includeNutrition=true&apiKey=`;
+    const data = await fetchWithFallback((key) => url + key);
 
     const r = data.recipes[0];
     if (!r) {
@@ -273,19 +285,28 @@ async function randomRecipe() {
   }
 }
 
-// -------FILTERS------- //
 function toggleFilters() {
   const container = document.getElementById('filters-container');
   container.classList.toggle('hidden');
-  const btn = document.querySelector('.toggle-filters');
-  btn.style.transform = container.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+  const arrow = document.getElementById('toggle-arrow');
+  arrow.classList.toggle('open');
+}
+
+function togglePill(btn) {
+  const filterId = btn.dataset.filter;
+  const isActive = btn.classList.toggle('active');
+  if (isActive) activeFilters[filterId] = true;
+  else delete activeFilters[filterId];
+  localStorage.setItem('active_filters', JSON.stringify(activeFilters));
+  displayActiveFilters();
 }
 
 function updateFilters() {
   activeFilters = {};
-  Object.keys(filterMapping).forEach(filterId => {
-    const checkbox = document.getElementById(filterId);
-    if (checkbox && checkbox.checked) {
+  const allKeys = [...Object.keys(dietMapping), ...Object.keys(booleanMapping)];
+  allKeys.forEach(filterId => {
+    const pill = document.querySelector(`.filter-pill[data-filter="${filterId}"]`);
+    if (pill && pill.classList.contains('active')) {
       activeFilters[filterId] = true;
     }
   });
@@ -298,8 +319,10 @@ function loadFiltersFromStorage() {
   if (saved) {
     activeFilters = JSON.parse(saved);
     Object.entries(activeFilters).forEach(([filterId, value]) => {
-      const checkbox = document.getElementById(filterId);
-      if (checkbox) checkbox.checked = value;
+      if (value) {
+        const pill = document.querySelector(`.filter-pill[data-filter="${filterId}"]`);
+        if (pill) pill.classList.add('active');
+      }
     });
     displayActiveFilters();
   }
@@ -307,21 +330,12 @@ function loadFiltersFromStorage() {
 
 function displayActiveFilters() {
   const container = document.getElementById('active-filters');
+  if (!container) return;
   const activeList = Object.keys(activeFilters).filter(key => activeFilters[key]);
-  
   if (activeList.length === 0) {
     container.innerHTML = '';
     return;
   }
-
-  const filterLabels = {
-    'vegan': '🌱 Vegan',
-    'vegetarian': '🥬 Vegetarian',
-    'gluten-free': '🌾 Fără Gluten',
-    'dairy-free': '🥛 Fără Lactate',
-    'paleo': '🍖 Paleo',
-    'keto': '⚡ Keto'
-  };
 
   container.innerHTML = `<div class="filters-display">
     ${activeList.map(key => `
@@ -334,14 +348,13 @@ function displayActiveFilters() {
 }
 
 function removeFilter(filterId) {
-  const checkbox = document.getElementById(filterId);
-  if (checkbox) {
-    checkbox.checked = false;
-    updateFilters();
-  }
+  const pill = document.querySelector(`.filter-pill[data-filter="${filterId}"]`);
+  if (pill) pill.classList.remove('active');
+  delete activeFilters[filterId];
+  localStorage.setItem('active_filters', JSON.stringify(activeFilters));
+  displayActiveFilters();
 }
 
-// -------FAVORITES------- //
 function showFavorites() {
   const favorites = JSON.parse(localStorage.getItem('favorite_recipes') || '[]');
   const modal = document.getElementById('favorites-modal');
@@ -360,7 +373,7 @@ function showFavorites() {
           <p class="favorite-meta">
             <span>⏱ ${recipe.readyInMinutes} min</span>
             <span class="dot">·</span>
-            <span>🍽 ${recipe.servings} porții</span>
+            <span>${recipe.servings} porții</span>
           </p>
         </div>
         <div class="favorite-item-actions">

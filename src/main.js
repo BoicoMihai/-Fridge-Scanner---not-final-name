@@ -147,7 +147,9 @@ function initTimeSlider() {
 }
 
 function showLoading() {
-  document.getElementById('loading').classList.add('visible');
+  const loading = document.getElementById('loading');
+  loading.classList.remove('hidden');
+  loading.classList.add('visible');
   document.getElementById('recipe-card').classList.add('hidden');
 }
 

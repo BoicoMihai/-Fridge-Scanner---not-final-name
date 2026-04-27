@@ -1321,8 +1321,8 @@ footer::after {
   }
 
   .search-card {
-    width: 100%;
-    padding: 1.4rem 1.25rem 1.25rem;
+    width: 400px;
+    padding: 1.6rem 1.25rem 1.25rem;
     border-radius: 16px;
   }
 
@@ -1576,6 +1576,7 @@ footer::after {
   }
 
   .search-card {
+    width: 300px;
     padding: 1.2rem 1rem 1.1rem;
   }
 

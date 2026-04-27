@@ -20,7 +20,7 @@
 
 <br/>
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Site-9F5D5D?style=for-the-badge&labelColor=5c4033)](https://boicomihai.github.io/FridgeScanner)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Site-9F5D5D?style=for-the-badge&labelColor=5c4033)](https://fridge-scanner-app.vercel.app/)
 [![GitHub Stars](https://img.shields.io/github/stars/BoicoMihai/FridgeScanner?style=for-the-badge&color=9F5D5D&labelColor=5c4033)](https://github.com/BoicoMihai/FridgeScanner/stargazers)
 [![Open Source](https://img.shields.io/badge/Open_Source-♥-9F5D5D?style=for-the-badge&labelColor=5c4033)](https://github.com/BoicoMihai/FridgeScanner)
 

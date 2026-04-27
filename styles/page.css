@@ -25,6 +25,8 @@ body {
   background-color: var(--cream);
   font-family: 'DM Sans', sans-serif;
   color: var(--text);
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
 }
 
@@ -243,13 +245,13 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s, transform 0.15s;
+  transition: background 0.2s, transform 400ms;
   flex-shrink: 0;
 }
 
 .btn-random:hover {
   background: var(--brown);
-  transform: rotate(30deg) scale(1.05);
+  transform: rotate(360deg) scale(1.05);
 }
 
 .btn-random:hover #random { filter: invert(1); }
@@ -476,6 +478,7 @@ nav {
 }
 
 .results-section {
+  flex: 1;
   max-width: 600px;
   margin: 2.5rem auto 5rem;
   padding: 0 1.5rem;
@@ -494,16 +497,77 @@ nav {
   padding: 2.5rem 0;
 }
 
-.spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--border);
-  border-top-color: var(--brown);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--cream-dark) 25%,
+    var(--cream-mid)  50%,
+    var(--cream-dark) 75%
+  );
+  background-size: 600px 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: 10px;
+}
+
+.skeleton-card {
+  background: var(--card-bg);
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  width: 100%;
+}
+
+.skeleton-image {
+  width: 450px;
+  height: 300px;
+  border-radius: 0;
+}
+
+.skeleton-body {
+  padding: 1.6rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.skeleton-title {
+  height: 32px;
+  width: 70%;
+  border-radius: 8px;
+}
+
+.skeleton-meta {
+  height: 32px;
+  width: 45%;
+  border-radius: 8px;
+}
+
+.skeleton-nutrients {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.skeleton-chip {
+  height: 32px;
+  border-radius: 8px;
+}
+
+.skeleton-btn {
+  height: 32px;
+  width: 50%;
+  border-radius: 8px;
+}
+
+#loading.visible {
+  display: block !important;
+}
 
 #recipe-card {
   background: var(--card-bg);
@@ -906,7 +970,7 @@ nav {
   right: calc(100% + 50px);
   top: 0;
   width: 400px;
-  z-index: 200;
+  z-index: 99;
   animation: slideInLeft 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 

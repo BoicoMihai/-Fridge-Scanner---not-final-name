@@ -111,7 +111,7 @@
       <div class="input-row">
         <div class="input-wrapper">
           <input type="text" id="ghost" disabled>
-          <input type="text" id="q" placeholder="Scrie un ingredient..." onfocus="showHistory()" onblur="hideHistory()" oninput="ingredientSuggest()" onkeydown="handleKey(event)" onkeydown="if(event.key==='Enter') search()">
+          <input type="text" id="q" placeholder="Scrie un ingredient..." onfocus="showHistory()" onblur="hideHistory()" oninput="ingredientSuggest()" onkeydown="handleKey(event); if(event.key==='Enter') search()>
         </div>
         <button id="btn-search" onclick="search()">
           <img src="images/search.png" alt="search" width="18" height="18" id="search-icon">

@@ -53,8 +53,8 @@ nav a::after {
     background: var(--dusty-rose);
     border-radius: 2px;
     transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.22s ease;
+    transform-origin: center;
+    transition: transform 0.35s ease;
 }
 
 nav a.active::after,

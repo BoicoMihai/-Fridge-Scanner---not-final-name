@@ -66,7 +66,7 @@ nav {
   font-size: 0.85rem;
   color: var(--text-muted);
   text-decoration: none;
-  font-weight: 400;
+  font-weight: 600;
   position: relative;
   transition: color 0.22s ease;
 }
@@ -81,8 +81,8 @@ nav {
   background: #9F5D5D;
   border-radius: 2px;
   transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.22s ease;
+  transform-origin: center;
+  transition: transform 0.35s ease;
 }
 
 .nav-links a:hover::after,
@@ -93,10 +93,6 @@ nav {
 .nav-links a:hover,
 .nav-links a.active {
   color: #9F5D5D;
-}
-
-.nav-favorites {
-  font-weight: 500 !important;
 }
 
 .btn-discover {

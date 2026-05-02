@@ -13,6 +13,11 @@
   --nav-hover: #919191;
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body {
   font-family: "Afacad", sans-serif;
   font-weight: 600;
@@ -21,7 +26,6 @@ body {
   font-size: 16px;
 }
 
-/* ─── SOCIAL ICONS ─── */
 .social-icons {
   position: absolute;
   z-index: 1;
@@ -37,7 +41,6 @@ body {
   height: 25px;
 }
 
-/* ─── NAV ─── */
 nav {
   display: flex;
   gap: 2.5rem;
@@ -66,8 +69,8 @@ nav a::after {
   background: var(--dusty-rose);
   border-radius: 2px;
   transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.22s ease;
+  transform-origin: center;
+  transition: transform 0.35s ease;
 }
 
 nav a.active::after,
@@ -80,13 +83,13 @@ nav a:hover {
   color: var(--dusty-rose);
 }
 
-/* ─── HERO ─── */
 .hero {
   display: grid;
   gap: 3rem;
   align-items: center;
   padding-left: 4rem;
-  width: 1600px;
+  width: 100%;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
@@ -136,18 +139,18 @@ nav a:hover {
 }
 
 .hero-image img {
-  width: 1500px;
-  height: 900px;
-  z-index: 0;
+  width: 100%;
+  height: auto;
+  max-width: 1500px;
 }
 
-/* ─── CONTENT / HOW IT WORKS ─── */
 .content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 980px;
-  width: 70%;
+  min-width: unset;
+  width: 90%;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -204,7 +207,6 @@ nav a:hover {
   height: 250px;
 }
 
-/* ─── FOOTER ─── */
 .footer {
   display: flex;
   justify-content: center;
@@ -351,12 +353,8 @@ nav a:hover {
   margin: 20px auto;
 }
 
-/* ════════════════════════════════════════════
-   TABLET  (max 1024px)
-   ════════════════════════════════════════════ */
 @media (max-width: 1024px) {
 
-  /* Nav */
   nav {
     position: relative;
     padding: 30px 24px;
@@ -367,7 +365,6 @@ nav a:hover {
 
   nav a { font-size: 17px; }
 
-  /* Social icons */
   .social-icons {
     position: relative;
     flex-direction: row;
@@ -376,7 +373,6 @@ nav a:hover {
     gap: 1rem;
   }
 
-  /* Hero */
   .hero {
     width: 100%;
     padding: 0;
@@ -410,7 +406,6 @@ nav a:hover {
     display: block;
   }
 
-  /* Content */
   .content {
     width: 90%;
     min-width: auto;
@@ -442,7 +437,6 @@ nav a:hover {
 
   .content-card__image { height: 180px; }
 
-  /* Footer */
   .footer > h1 {
     font-size: 2.6rem;
     text-align: center;
@@ -490,12 +484,8 @@ nav a:hover {
   }
 }
 
-/* ════════════════════════════════════════════
-   MOBILE  (max 600px)
-   ════════════════════════════════════════════ */
 @media (max-width: 600px) {
 
-  /* Nav scrollabil */
   nav {
     padding: 20px 16px;
     gap: 1rem;
@@ -513,12 +503,10 @@ nav a:hover {
     white-space: nowrap;
   }
 
-  /* Social icons — ascunse pe mobil */
   .social-icons {
     display: none;
   }
 
-  /* Hero — compact, text sus, imagine jos */
   .hero-content {
     padding: 20px 1.2rem 16px;
   }
@@ -539,14 +527,12 @@ nav a:hover {
     padding: 0.65rem 1.6rem;
   }
 
-  /* Content */
   .content h1 { font-size: 1.8rem; }
 
   .content-card__image { height: 140px; }
 
   .how-it-works p { font-size: 15px; }
 
-  /* Footer */
   .footer > h1 {
     font-size: 2rem;
     padding: 14px;
@@ -572,7 +558,6 @@ nav a:hover {
     margin-bottom: 16px;
   }
 
-  /* 3 coloane: Site map | Legal | For more info */
   .text-content {
     flex-direction: row;
     align-items: flex-start;

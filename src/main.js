@@ -33,19 +33,19 @@ async function fetchWithFallback(urlTemplate) {
       const data = await res.json();
 
       if (data.status === 'failure' || res.status === 402) {
-        console.warn(`Cheia ${i + 1} epuizată, trec la următoarea...`);
+        console.warn(`Key ${i + 1} exhausted, moving on to the next one...`);
         currentKeyIndex = i + 1;
         continue;
       }
 
       return data;
     } catch (e) {
-      console.error(`Eroare cu cheia ${i + 1}:`, e);
+      console.error(`Error with key ${i + 1}:`, e);
       currentKeyIndex = i + 1;
     }
   }
 
-  throw new Error('Toate cheile API sunt epuizate');
+  throw new Error('All API keys are exhausted');
 }
 
 window.onload = () => {
@@ -280,7 +280,7 @@ async function search() {
     const results = data.results;
     if (!results || results.length === 0) {
       document.getElementById('loading').classList.add('hidden');
-      alert('Nu s-au găsit rețete cu aceste criterii');
+      alert('No recipes found with these criteria');
       return;
     }
 
@@ -293,7 +293,7 @@ async function search() {
     if (timeMin !== 5 || timeMax !== 120) {
       if (!full.readyInMinutes || full.readyInMinutes < timeMin || full.readyInMinutes > timeMax) {
         document.getElementById('loading').classList.add('hidden');
-        alert('Nu s-au găsit rețete în intervalul de timp selectat');
+        alert('No recipes found in the selected time range');
         return;
       }
     }
@@ -304,7 +304,7 @@ async function search() {
 
     renderRecipe(full);
   } catch (e) {
-    alert('Toate cheile API sunt epuizate. Încearcă mai târziu.');
+    alert('All API keys are exhausted. Please try again later.');
     document.getElementById('loading').classList.add('hidden');
   }
 }
@@ -390,7 +390,7 @@ async function randomRecipe() {
 
     if (filtered.length === 0) {
       document.getElementById('loading').classList.add('hidden');
-      alert('Nu s-au găsit rețete în intervalul de timp selectat');
+      alert('No recipes found in the selected time range');
       return;
     }
 
@@ -402,7 +402,7 @@ async function randomRecipe() {
 
     renderRecipe(full);
   } catch (e) {
-    alert('Toate cheile API sunt epuizate');
+    alert('All API keys are exhausted');
     document.getElementById('loading').classList.add('hidden');
   }
 }
@@ -483,7 +483,7 @@ function showFavorites() {
   const list = document.getElementById('favorites-list');
 
   if (favorites.length === 0) {
-    list.innerHTML = '<p class="no-favorites">Nu ai salvat nicio rețetă.</p>';
+    list.innerHTML = '<p class="no-favorites">You have not saved any recipes.</p>';
   } else {
     list.innerHTML = favorites.map(recipe => `
       <div class="favorite-item">
@@ -495,12 +495,12 @@ function showFavorites() {
           <p class="favorite-meta">
             <span>⏱ ${recipe.readyInMinutes} min</span>
             <span class="dot">·</span>
-            <span>${recipe.servings} porții</span>
+            <span>${recipe.servings} servings</span>
           </p>
         </div>
         <div class="favorite-item-actions">
           <button class="view-recipe-btn" onclick="loadFavorite(${JSON.stringify(recipe).replace(/"/g, '&quot;')})">
-            Vezi
+            View
           </button>
           <button class="remove-favorite-btn" onclick="removeFavorite(${recipe.id})">
             ✕
